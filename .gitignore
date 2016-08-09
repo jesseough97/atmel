@@ -30,3 +30,10 @@
 
 # Debug files
 *.dSYM/
+*.d
+Debug
+
+*.atsuo
+*.vs
+
+samd21_winc1500_wolf_tls_ecc508a_client.componentinfo.xml

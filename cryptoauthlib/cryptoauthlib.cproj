@@ -1,0 +1,413 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>7.0</ProjectVersion>
+    <ToolchainName>com.Atmel.ARMGCC.C</ToolchainName>
+    <ProjectGuid>{c443953f-7867-4ff9-a9c9-0c7879c54ec5}</ProjectGuid>
+    <avrdevice>ATSAMD21J18A</avrdevice>
+    <avrdeviceseries>none</avrdeviceseries>
+    <OutputType>StaticLibrary</OutputType>
+    <Language>C</Language>
+    <OutputFileName>lib$(MSBuildProjectName)</OutputFileName>
+    <OutputFileExtension>.a</OutputFileExtension>
+    <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
+    <AvrGccProjectExtensions>
+    </AvrGccProjectExtensions>
+    <AssemblyName>cryptoauthlib</AssemblyName>
+    <Name>cryptoauthlib</Name>
+    <RootNamespace>cryptoauthlib</RootNamespace>
+    <ToolchainFlavour>Native</ToolchainFlavour>
+    <KeepTimersRunning>true</KeepTimersRunning>
+    <OverrideVtor>false</OverrideVtor>
+    <CacheFlash>true</CacheFlash>
+    <ProgFlashFromRam>true</ProgFlashFromRam>
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
+    <UncachedRange />
+    <preserveEEPROM>true</preserveEEPROM>
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
+    <BootSegment>2</BootSegment>
+    <eraseonlaunchrule>0</eraseonlaunchrule>
+    <AsfFrameworkConfig>
+      <framework-data xmlns="">
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.28.1" />
+        </dependencies>
+      </framework-data>
+    </AsfFrameworkConfig>
+    <avrtool />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <ToolchainSettings>
+      <ArmGcc>
+  <armgcc.common.outputfiles.hex>True</armgcc.common.outputfiles.hex>
+  <armgcc.common.outputfiles.lss>True</armgcc.common.outputfiles.lss>
+  <armgcc.common.outputfiles.eep>True</armgcc.common.outputfiles.eep>
+  <armgcc.common.outputfiles.bin>True</armgcc.common.outputfiles.bin>
+  <armgcc.common.outputfiles.srec>True</armgcc.common.outputfiles.srec>
+  <armgcc.compiler.symbols.DefSymbols>
+    <ListValues>
+      <Value>NDEBUG</Value>
+      <Value>BOARD=SAMD21_XPLAINED_PRO</Value>
+      <Value>__SAMD21J18A__</Value>
+      <Value>ARM_MATH_CM0PLUS=true</Value>
+      <Value>I2C_MASTER_CALLBACK_MODE=true</Value>
+      <Value>USART_CALLBACK_MODE=true</Value>
+      <Value>SYSTICK_MODE</Value>
+      <Value>ATCA_HAL_I2C</Value>
+      <Value>ATCAPRINTF</Value>
+      <Value>ATECC508A_WOLFSSL</Value>
+    </ListValues>
+  </armgcc.compiler.symbols.DefSymbols>
+  <armgcc.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>..</Value>
+      <Value>../hal</Value>
+      <Value>../..</Value>
+      <Value>../../ASF/src/</Value>
+      <Value>%24(PackRepoDir)\atmel\SAMD21_DFP\1.0.231\samd21a\include</Value>
+      <Value>%24(PackRepoDir)\arm\cmsis\4.2.0\CMSIS\Include\</Value>
+      <Value>../../ASF/src/ASF/sam0/utils/header_files</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/system/power/power_sam_d_r</Value>
+      <Value>../../ASF/src/ASF/common/utils</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/system/pinmux</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/system/power</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/system/reset/reset_sam_d_r</Value>
+      <Value>../../ASF/src/ASF/common/boards</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/port</Value>
+      <Value>../../ASF/src/ASF/sam0/boards</Value>
+      <Value>../../ASF/src/ASF/sam0/utils</Value>
+      <Value>../../ASF/src/ASF/thirdparty/CMSIS/Include</Value>
+      <Value>../../ASF/src/config</Value>
+      <Value>../../ASF/src/ASF/thirdparty/CMSIS/Lib/GCC</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/system/reset</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/system/interrupt/system_interrupt_samd21</Value>
+      <Value>../../ASF/src/ASF/sam0/boards/samd21_xplained_pro</Value>
+      <Value>../../ASF/src/ASF/sam0/utils/preprocessor</Value>
+      <Value>../../ASF/src/ASF/sam0/utils/cmsis/samd21/include</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/system</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da</Value>
+      <Value>../../ASF/src/ASF/sam0/utils/cmsis/samd21/source</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/system/clock</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/system/interrupt</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/sercom</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/sercom/i2c</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/sercom/i2c/i2c_sam0</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/sercom/usart</Value>
+      <Value>../../ASF/src/ASF/common2/services/delay</Value>
+      <Value>../../ASF/src/ASF/common2/services/delay/sam0</Value>
+      <Value>../../ASF/src/ASF/sam0/utils/stdio/stdio_serial</Value>
+      <Value>../../ASF/src/ASF/common/services/serial</Value>
+    </ListValues>
+  </armgcc.compiler.directories.IncludePaths>
+  <armgcc.compiler.optimization.level>Optimize for size (-Os)</armgcc.compiler.optimization.level>
+  <armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
+  <armgcc.compiler.warnings.AllWarnings>True</armgcc.compiler.warnings.AllWarnings>
+  <armgcc.linker.libraries.Libraries>
+    <ListValues>
+      <Value>libm</Value>
+    </ListValues>
+  </armgcc.linker.libraries.Libraries>
+  <armgcc.linker.libraries.LibrarySearchPaths>
+    <ListValues>
+      <Value>Z:\davidgarske\GitHub\atmel\AtmelWolfSSL\ASF\Debug\../src/ASF/thirdparty/CMSIS/Lib/GCC</Value>
+    </ListValues>
+  </armgcc.linker.libraries.LibrarySearchPaths>
+  <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
+  <armgcc.assembler.general.IncludePaths>
+    <ListValues>
+      <Value>%24(PackRepoDir)\atmel\SAMD21_DFP\1.0.231\samd21a\include</Value>
+    </ListValues>
+  </armgcc.assembler.general.IncludePaths>
+  <armgcc.preprocessingassembler.general.IncludePaths>
+    <ListValues>
+      <Value>%24(PackRepoDir)\arm\cmsis\4.2.0\CMSIS\Include\</Value>
+      <Value>%24(PackRepoDir)\atmel\SAMD21_DFP\1.0.231\samd21a\include</Value>
+    </ListValues>
+  </armgcc.preprocessingassembler.general.IncludePaths>
+</ArmGcc>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <ToolchainSettings>
+      <ArmGcc>
+  <armgcc.common.outputfiles.hex>True</armgcc.common.outputfiles.hex>
+  <armgcc.common.outputfiles.lss>True</armgcc.common.outputfiles.lss>
+  <armgcc.common.outputfiles.eep>True</armgcc.common.outputfiles.eep>
+  <armgcc.common.outputfiles.bin>True</armgcc.common.outputfiles.bin>
+  <armgcc.common.outputfiles.srec>True</armgcc.common.outputfiles.srec>
+  <armgcc.compiler.symbols.DefSymbols>
+    <ListValues>
+      <Value>DEBUG</Value>
+      <Value>BOARD=SAMD21_XPLAINED_PRO</Value>
+      <Value>__SAMD21J18A__</Value>
+      <Value>ARM_MATH_CM0PLUS=true</Value>
+      <Value>I2C_MASTER_CALLBACK_MODE=true</Value>
+      <Value>USART_CALLBACK_MODE=true</Value>
+      <Value>SYSTICK_MODE</Value>
+      <Value>ATCA_HAL_I2C</Value>
+      <Value>ATCAPRINTF</Value>
+      <Value>ATECC508A_WOLFSSL</Value>
+    </ListValues>
+  </armgcc.compiler.symbols.DefSymbols>
+  <armgcc.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>..</Value>
+      <Value>../hal</Value>
+      <Value>../..</Value>
+      <Value>../../ASF/src/</Value>
+      <Value>%24(PackRepoDir)\atmel\SAMD21_DFP\1.0.231\samd21a\include</Value>
+      <Value>%24(PackRepoDir)\arm\cmsis\4.2.0\CMSIS\Include\</Value>
+      <Value>../../ASF/src/ASF/sam0/utils/header_files</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/system/power/power_sam_d_r</Value>
+      <Value>../../ASF/src/ASF/common/utils</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/system/pinmux</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/system/power</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/system/reset/reset_sam_d_r</Value>
+      <Value>../../ASF/src/ASF/common/boards</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/port</Value>
+      <Value>../../ASF/src/ASF/sam0/boards</Value>
+      <Value>../../ASF/src/ASF/sam0/utils</Value>
+      <Value>../../ASF/src/ASF/thirdparty/CMSIS/Include</Value>
+      <Value>../../ASF/src/config</Value>
+      <Value>../../ASF/src/ASF/thirdparty/CMSIS/Lib/GCC</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/system/reset</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/system/interrupt/system_interrupt_samd21</Value>
+      <Value>../../ASF/src/ASF/sam0/boards/samd21_xplained_pro</Value>
+      <Value>../../ASF/src/ASF/sam0/utils/preprocessor</Value>
+      <Value>../../ASF/src/ASF/sam0/utils/cmsis/samd21/include</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/system</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da</Value>
+      <Value>../../ASF/src/ASF/sam0/utils/cmsis/samd21/source</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/system/clock</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/system/interrupt</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/sercom</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/sercom/i2c</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/sercom/i2c/i2c_sam0</Value>
+      <Value>../../ASF/src/ASF/sam0/drivers/sercom/usart</Value>
+      <Value>../../ASF/src/ASF/common2/services/delay</Value>
+      <Value>../../ASF/src/ASF/common2/services/delay/sam0</Value>
+      <Value>../../ASF/src/ASF/sam0/utils/stdio/stdio_serial</Value>
+      <Value>../../ASF/src/ASF/common/services/serial</Value>
+    </ListValues>
+  </armgcc.compiler.directories.IncludePaths>
+  <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
+  <armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</armgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
+  <armgcc.compiler.optimization.DebugLevel>Maximum (-g3)</armgcc.compiler.optimization.DebugLevel>
+  <armgcc.compiler.warnings.AllWarnings>True</armgcc.compiler.warnings.AllWarnings>
+  <armgcc.linker.libraries.Libraries>
+    <ListValues>
+      <Value>libm</Value>
+    </ListValues>
+  </armgcc.linker.libraries.Libraries>
+  <armgcc.linker.libraries.LibrarySearchPaths>
+    <ListValues>
+      <Value>Z:\davidgarske\GitHub\atmel\AtmelWolfSSL\ASF\Debug\../src/ASF/thirdparty/CMSIS/Lib/GCC</Value>
+    </ListValues>
+  </armgcc.linker.libraries.LibrarySearchPaths>
+  <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
+  <armgcc.linker.memorysettings.ExternalRAM />
+  <armgcc.assembler.general.IncludePaths>
+    <ListValues>
+      <Value>%24(PackRepoDir)\atmel\SAMD21_DFP\1.0.231\samd21a\include</Value>
+    </ListValues>
+  </armgcc.assembler.general.IncludePaths>
+  <armgcc.assembler.debugging.DebugLevel>Default (-g)</armgcc.assembler.debugging.DebugLevel>
+  <armgcc.preprocessingassembler.general.IncludePaths>
+    <ListValues>
+      <Value>%24(PackRepoDir)\arm\cmsis\4.2.0\CMSIS\Include\</Value>
+      <Value>%24(PackRepoDir)\atmel\SAMD21_DFP\1.0.231\samd21a\include</Value>
+    </ListValues>
+  </armgcc.preprocessingassembler.general.IncludePaths>
+  <armgcc.preprocessingassembler.debugging.DebugLevel>Default (-Wa,-g)</armgcc.preprocessingassembler.debugging.DebugLevel>
+</ArmGcc>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="atcacert\atcacert.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atcacert\atcacert_client.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atcacert\atcacert_client.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atcacert\atcacert_date.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atcacert\atcacert_date.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atcacert\atcacert_def.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atcacert\atcacert_def.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atcacert\atcacert_der.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atcacert\atcacert_der.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atcacert\atcacert_host_hw.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atcacert\atcacert_host_hw.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atcacert\atcacert_host_sw.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atcacert\atcacert_host_sw.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atca_cfgs.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atca_cfgs.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atca_command.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atca_command.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atca_compiler.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atca_device.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atca_device.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atca_devtypes.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atca_iface.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atca_iface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="atca_status.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="basic\atca_basic.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="basic\atca_basic.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="basic\atca_helpers.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="basic\atca_helpers.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="cryptoauthlib.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="crypto\atca_crypto_sw.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="crypto\atca_crypto_sw_ecdsa.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="crypto\atca_crypto_sw_ecdsa.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="crypto\atca_crypto_sw_rand.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="crypto\atca_crypto_sw_rand.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="crypto\atca_crypto_sw_sha1.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="crypto\atca_crypto_sw_sha1.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="crypto\atca_crypto_sw_sha2.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="crypto\atca_crypto_sw_sha2.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="crypto\hashes\sha1_routines.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="crypto\hashes\sha1_routines.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="crypto\hashes\sha2_routines.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="crypto\hashes\sha2_routines.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="hal\atca_hal.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="hal\atca_hal.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="hal\hal_samd21_i2c_asf.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="hal\hal_samd21_i2c_asf.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="hal\hal_samd21_timer_asf.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="hal\swi_uart_samd21_asf.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="hal\swi_uart_samd21_asf.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="host\atca_host.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="host\atca_host.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tls\atcatls.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tls\atcatls.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tls\atcatls_cfg.h">
+      <SubType>compile</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="atcacert" />
+    <Folder Include="basic" />
+    <Folder Include="crypto" />
+    <Folder Include="crypto\hashes" />
+    <Folder Include="hal" />
+    <Folder Include="host" />
+    <Folder Include="tls" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="basic\README.md">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="crypto\README.md">
+      <SubType>compile</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
+</Project>
