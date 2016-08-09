@@ -135,6 +135,21 @@ static unsigned char FAKE_KEY_BUFFER[] = {
 	0x2D, 0x2D, 0x0A
 };
 
+
+/** WolfSSL callback functions to communicate to ATECC508A. */
+int tls_create_pms_cb(struct WOLFSSL* ssl,
+        unsigned char* pubKeyDer, unsigned int* pubKeySz,
+        unsigned char* out, unsigned int* outlen,
+        int side, void* ctx);
+int tls_build_signer_ca_cert(void);
+int tls_build_end_user_cert(void);
+int tls_verify_peer_cert_cb(int preverify, struct WOLFSSL_X509_STORE_CTX *peer_cert);
+int tls_sign_certificate_cb(struct WOLFSSL* ssl, const byte* in, word32 inSz, byte* out, word32* outSz, 
+							const byte* key, word32 keySz, void* ctx);
+int tls_verify_signature_cb(struct WOLFSSL* ssl, const byte* sig, word32 sigSz, const byte* hash, 
+                 			word32 hashSz, const byte* key, word32 keySz, int* result, void* ctx);
+
+
 #ifdef __cplusplus
 }
 #endif

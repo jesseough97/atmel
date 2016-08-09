@@ -49,6 +49,8 @@ extern "C" {
 #include "asf.h"
 #include "tls_common.h"
 #include "cryptoauthlib.h"
+#include "certs/cert_def_signer_ca.h"
+#include "certs/cert_def_end_user.h"
 #include <stdio.h>
 
 uint16_t tls_socket_status = 0x0000;
@@ -474,6 +476,228 @@ int tls_receive_packet_cb(WOLFSSL *ssl, char *buf, int sz, void *ctx)
 
     return sz;
 }	
+
+
+
+
+/**
+ * \brief Give enc key to read pms.
+ */
+static int tls_set_enc_key(uint8_t* enckey, int16_t keysize)
+{
+	//uint8_t i = 0;
+
+	if (enckey == NULL || keysize != ATECC_KEY_SIZE) {
+        return -1;
+    }
+
+	XMEMSET(enckey, 0xFF, keysize);	// use default values
+
+	return SSL_SUCCESS;
+}
+
+
+/**
+ * \brief Create pre master secret using peer's public key and self private key.
+ */
+ int tls_create_pms_cb(WOLFSSL* ssl,
+        unsigned char* pubKeyDer, unsigned int* pubKeySz,
+        unsigned char* out, unsigned int* outlen,
+        int side, void* ctx)
+{
+	int ret = 0;
+	uint8_t key_buffer[64];
+
+	if (pubKeyDer == NULL || pubKeySz == NULL ||
+		out == NULL || outlen == NULL) {
+		return -1;
+	}
+
+	(void)ctx;
+
+	if (side == WOLFSSL_CLIENT_END) {
+	    ret = atcacert_get_subj_public_key(&g_cert_def_end_user,
+	    	ssl->peerCert.derCert->buffer,
+	    	ssl->peerCert.derCert->length,
+	    	key_buffer);
+		if (ret != ATCACERT_E_SUCCESS) {
+			printf("Failed to get singer's public key!\r\n");
+			return ret;
+		}
+		atcab_printbin_label((const uint8_t*)"\r\nPeer's Public Key", key_buffer, sizeof(key_buffer));
+
+		ret = atcatlsfn_set_get_enckey(tls_set_enc_key);
+		if (ret != ATCA_SUCCESS) {
+			printf("Failed to set enckey\r\n");
+			return -1;
+		}
+
+		ret = atcatls_ecdh(TLS_SLOT_AUTH_PRIV, key_buffer, out);
+		if (ret != 0) {
+			printf("Failed to create PMS\r\n");
+			return ret;
+		}
+		*outlen = ATECC_KEY_SIZE;
+
+		atcab_printbin_label((const uint8_t*)"\r\nPre Master Secret", out, *outlen);
+
+		XMEMCPY(pubKeyDer, atcert.end_user_pubkey, sizeof(atcert.end_user_pubkey));
+		*pubKeySz = sizeof(atcert.end_user_pubkey);
+		atcab_printbin_label((const uint8_t*)"\r\nClient public key to be sent", pubKeyDer, *pubKeySz);
+	}
+	else {
+		atcab_printbin_label((const uint8_t*)"\r\nPeer's Public Key", pubKeyDer, *pubKeySz);
+
+		ret = atcatlsfn_set_get_enckey(tls_set_enc_key);
+		if (ret != ATCA_SUCCESS) {
+			printf("Failed to set enckey\r\n");
+			return -1;
+		}
+
+		ret = atcatls_ecdh(TLS_SLOT_AUTH_PRIV, pubKeyDer, out);
+		if (ret != 0) {
+			printf("Failed to creat PMS\r\n");
+			return ret;
+		}
+
+		*outlen = ATECC_KEY_SIZE;
+		atcab_printbin_label((const uint8_t*)"\r\nPre Master Secret", out, *outlen);
+	}
+
+	return ret;
+}
+
+
+/**
+ * \brief build server's signer certificate.
+ */
+int tls_build_signer_ca_cert(void)
+{
+	int ret = 0;
+
+	ret = atcacert_read_cert(&g_cert_def_signer_ca, g_signer_root_ca_public_key, atcert.signer_ca, &atcert.signer_ca_size);
+	if (ret != ATCACERT_E_SUCCESS) {
+		printf("Failed to read signer cert!\r\n");
+		return ret;
+	}
+	atcab_printbin_label((const uint8_t*)"\r\nSigner Certficate", atcert.signer_ca, atcert.signer_ca_size);
+
+	ret = atcacert_get_subj_public_key(&g_cert_def_signer_ca, atcert.signer_ca, atcert.signer_ca_size, atcert.signer_ca_pubkey);
+	if (ret != ATCACERT_E_SUCCESS) {
+		printf("Failed to read signer public key!\r\n");
+		return ret;
+	}
+	atcab_printbin_label((const uint8_t*)"\r\nSigner Public Key", atcert.signer_ca_pubkey, sizeof(atcert.signer_ca_pubkey));
+
+	return ret;
+}
+
+/**
+ * \brief build server's signer certificate.
+ */
+int tls_build_end_user_cert(void)
+{
+	int ret = 0;
+	uint8_t device_signature[64];
+
+	ret = atcacert_read_cert(&g_cert_def_end_user, atcert.signer_ca_pubkey, atcert.end_user, &atcert.end_user_size);
+	if (ret != ATCACERT_E_SUCCESS) {
+		printf("Failed to read device cert!\r\n");
+		return ret;
+	}
+	atcab_printbin_label((const uint8_t*)"\r\nEnd User Certificate", atcert.end_user, atcert.end_user_size);
+
+	ret = atcacert_get_subj_public_key(&g_cert_def_end_user, atcert.end_user, atcert.end_user_size, atcert.end_user_pubkey);
+	if (ret != ATCACERT_E_SUCCESS) {
+		printf("Failed to read signer public key!\r\n");
+		return ret;
+	}
+	atcab_printbin_label((const uint8_t*)"\r\nEnd User Public Key", atcert.end_user_pubkey, sizeof(atcert.end_user_pubkey));
+
+	ret = atcacert_get_signature(&g_cert_def_end_user, atcert.end_user, atcert.end_user_size, device_signature);
+	if (ret != ATCACERT_E_SUCCESS) {
+		printf("Failed to read device cert!\r\n");
+		return ret;
+	}
+	atcab_printbin_label((const uint8_t*)"\r\nEnd User Signature", device_signature, sizeof(device_signature));
+
+	return ret;
+}
+
+int tls_verify_peer_cert_cb(int preverify, WOLFSSL_X509_STORE_CTX *peer_cert)
+{
+	int ret = 0;
+
+	ret = atcatls_verify_cert(&g_cert_def_end_user, peer_cert->current_cert->derCert->buffer,
+							peer_cert->current_cert->derCert->length, g_signer_ca_public_key);
+	if (ret != ATCACERT_E_SUCCESS) {
+		printf("Failed to verify device's certificate!\r\n");
+		ret = FALSE;
+	} else {
+		printf("Verified Peer's certificate!\r\n");
+		ret = TRUE;
+	}
+
+	return ret;
+}
+
+/**
+ * \brief Sign received digest so far for private key to be proved.
+ */
+int tls_sign_certificate_cb(WOLFSSL* ssl, const byte* in, word32 inSz, byte* out, word32* outSz,
+							const byte* key, word32 keySz, void* ctx)
+{
+	int ret = 0;
+
+	if (in == NULL || out == NULL || outSz == NULL) {
+		printf("Bad Param\r\n");
+		return -1;
+	}
+
+	ret = atcatls_sign(0x00, in, out);
+	if (ret != ATCA_SUCCESS) {
+		printf("Failed to sign digest\r\n");
+		return -1;
+	}
+
+	*outSz = 64;
+    atcab_printbin_label((const uint8_t*)"\r\nSigned Signature", out, *outSz);
+
+	return ret;
+}
+
+/**
+ * \brief Verify signature received from peers to prove peer's private key.
+ */
+int tls_verify_signature_cb(WOLFSSL* ssl, const byte* sig, word32 sigSz, const byte* hash,
+                 			word32 hashSz, const byte* key, word32 keySz, int* result, void* ctx)
+{
+	int ret = 0;
+	uint8_t key_buffer[64];
+
+	if (ssl->peerCert.derCert->buffer == NULL || key == NULL || sig == NULL || hash == NULL || result == NULL) {
+		printf("Bad Param\r\n");
+		return -1;
+	}
+
+    ret = atcacert_get_subj_public_key(&g_cert_def_end_user, ssl->peerCert.derCert->buffer,
+    										ssl->peerCert.derCert->length, key_buffer);
+	if (ret != ATCACERT_E_SUCCESS) {
+		printf("Failed to get singer's public key!\r\n");
+		return ret;
+	}
+
+	ret = atcatls_verify(hash, sig, key_buffer, (bool*)result);
+	if (ret != 0 || (*result != TRUE)) {
+		printf("Failed to verify signature!\r\n");
+		return -1;
+	}
+
+	if(*result == TRUE)
+		printf("Verified : Client's signed certificate!\r\n");
+
+	return ret;
+}
 
 
 #ifdef __cplusplus

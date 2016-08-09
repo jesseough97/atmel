@@ -300,7 +300,7 @@ int tls_load_wolfssl_objects(void)
 	
 	wolfSSL_CTX_set_verify(ctx_client, SSL_VERIFY_PEER, tls_verify_peer_cert_cb);
 	wolfSSL_CTX_SetEccSignCb(ctx_client, tls_sign_certificate_cb);
-	wolfSSL_CTX_SetEccPmsCb(ctx_client, tls_create_pms_cb);
+	wolfSSL_CTX_SetEccSharedSecretCb(ctx_client, tls_create_pms_cb);
 	wolfSSL_SetIORecv(ctx_client, tls_receive_packet_cb);
 	wolfSSL_SetIOSend(ctx_client, tls_send_packet_cb);	
 	

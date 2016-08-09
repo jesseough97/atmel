@@ -226,17 +226,16 @@ CSRCS += ../wolfssl/wolfcrypt/src/fe_low_mem.c
 CSRCS += ../wolfssl/wolfcrypt/src/ge_low_mem.c
 # port
 CSRCS += ../wolfssl/wolfcrypt/src/port/atmel/atmel.c
+#wolfTest
+CSRCS += ../wolfssl/wolfcrypt/test/test.c
+#wolfBenchmark
+CSRCS += ../wolfssl/wolfcrypt/benchmark/benchmark.c
 
 #wolfSSL includes
 INC_PATH += ../wolfssl
 
 #wolfSSL preprocessor (use the user_settings.h)
 CPPFLAGS += -DWOLFSSL_USER_SETTINGS
-
-#wolfTest
-CSRCS += ../wolfssl/wolfcrypt/test/test.c
-#wolfBenchmark
-CSRCS += ../wolfssl/wolfcrypt/benchmark/benchmark.c
 ## ----------------------------------------------------------------------------- ##
 
 
