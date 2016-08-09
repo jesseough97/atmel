@@ -95,6 +95,99 @@ static void configure_console(void)
 	usart_enable(&cdc_uart_module);
 }
 
+
+void HardFault_HandlerC(uint32_t *hardfault_args);
+
+/* Hard fault handler */
+void HardFault_HandlerC(uint32_t *hardfault_args)
+{
+    /* These are volatile to try and prevent the compiler/linker optimizing them
+    away as the variables never actually get used.  If the debugger won't show the
+    values of the variables, make them global my moving their declaration outside
+    of this function. */
+    volatile uint32_t stacked_r0;
+	volatile uint32_t stacked_r1;
+	volatile uint32_t stacked_r2;
+	volatile uint32_t stacked_r3;
+	volatile uint32_t stacked_r12;
+	volatile uint32_t stacked_lr;
+    volatile uint32_t stacked_pc;
+	volatile uint32_t stacked_psr;
+	volatile uint32_t _CFSR;
+	volatile uint32_t _HFSR;
+	volatile uint32_t _DFSR;
+	volatile uint32_t _AFSR;
+	volatile uint32_t _BFAR;
+	volatile uint32_t _MMAR;
+
+	stacked_r0 = ((uint32_t)hardfault_args[0]);
+	stacked_r1 = ((uint32_t)hardfault_args[1]);
+	stacked_r2 = ((uint32_t)hardfault_args[2]);
+	stacked_r3 = ((uint32_t)hardfault_args[3]);
+	stacked_r12 = ((uint32_t)hardfault_args[4]);
+	stacked_lr = ((uint32_t)hardfault_args[5]);
+	stacked_pc = ((uint32_t)hardfault_args[6]);
+	stacked_psr = ((uint32_t)hardfault_args[7]);
+
+    // Configurable Fault Status Register
+    // Consists of MMSR, BFSR and UFSR
+	_CFSR = (*((volatile uint32_t *)(0xE000ED28)));
+
+	// Hard Fault Status Register
+	_HFSR = (*((volatile uint32_t *)(0xE000ED2C)));
+
+	// Debug Fault Status Register
+	_DFSR = (*((volatile uint32_t *)(0xE000ED30)));
+
+	// Auxiliary Fault Status Register
+	_AFSR = (*((volatile uint32_t *)(0xE000ED3C)));
+
+	// Read the Fault Address Registers. These may not contain valid values.
+	// Check BFARVALID/MMARVALID to see if they are valid values
+	// MemManage Fault Address Register
+	_MMAR = (*((volatile uint32_t *)(0xE000ED34)));
+	// Bus Fault Address Register
+	_BFAR = (*((volatile uint32_t *)(0xE000ED38)));
+
+    printf ("\n\nHard fault handler (all numbers in hex):\n");
+    printf ("R0 = %x\n", (unsigned int)stacked_r0);
+    printf ("R1 = %x\n", (unsigned int)stacked_r1);
+    printf ("R2 = %x\n", (unsigned int)stacked_r2);
+    printf ("R3 = %x\n", (unsigned int)stacked_r3);
+    printf ("R12 = %x\n", (unsigned int)stacked_r12);
+    printf ("LR [R14] = %x  subroutine call return address\n", (unsigned int)stacked_lr);
+    printf ("PC [R15] = %x  program counter\n", (unsigned int)stacked_pc);
+    printf ("PSR = %x\n", (unsigned int)stacked_psr);
+    printf ("CFSR = %x\n", (unsigned int)_CFSR);
+    printf ("HFSR = %x\n", (unsigned int)_HFSR);
+    printf ("DFSR = %x\n", (unsigned int)_DFSR);
+    printf ("AFSR = %x\n", (unsigned int)_AFSR);
+    printf ("MMAR = %x\n", (unsigned int)_MMAR);
+    printf ("BFAR = %x\n", (unsigned int)_BFAR);
+
+    // Break into the debugger
+	__asm("BKPT #0\n");
+}
+
+__attribute__( ( naked ) )
+void HardFault_Handler(void)
+{
+	__asm(
+		"  mov r0, #4          \n"
+		"  mov r1, lr          \n"
+		"  tst r0, r1          \n"
+		"  beq using_msp       \n"
+		"  mrs r0, psp         \n"
+		"  b call_c            \n"
+		"using_msp:            \n"
+		"  mrs r0, msp         \n"
+		"call_c:               \n"
+		"  ldr r2, =HardFault_HandlerC \n"
+		"  bx r2               \n"
+	);
+}
+
+
 /**
  * \brief Main application function.
  *
