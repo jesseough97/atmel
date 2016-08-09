@@ -52,28 +52,10 @@
 	#include "tls_client.h"
 #endif
 
+ #include "conf_uart_serial.h"
+
 /** UART module for debug. */
 static struct usart_module cdc_uart_module;
-
-#if 1
-/* Use EXT3 UART */
-#define CONF_STDIO_USART_MODULE  EXT3_UART_MODULE
-#define CONF_STDIO_MUX_SETTING   EXT3_UART_SERCOM_MUX_SETTING
-#define CONF_STDIO_PINMUX_PAD0   EXT3_UART_SERCOM_PINMUX_PAD0
-#define CONF_STDIO_PINMUX_PAD1   EXT3_UART_SERCOM_PINMUX_PAD1
-#define CONF_STDIO_PINMUX_PAD2   EXT3_UART_SERCOM_PINMUX_PAD2
-#define CONF_STDIO_PINMUX_PAD3   EXT3_UART_SERCOM_PINMUX_PAD3
-#define CONF_STDIO_BAUDRATE      115200
-#else
-/* Use EDBG UART */
-#define CONF_STDIO_USART_MODULE  EDBG_CDC_MODULE
-#define CONF_STDIO_MUX_SETTING   EDBG_CDC_SERCOM_MUX_SETTING
-#define CONF_STDIO_PINMUX_PAD0   EDBG_CDC_SERCOM_PINMUX_PAD0
-#define CONF_STDIO_PINMUX_PAD1   EDBG_CDC_SERCOM_PINMUX_PAD1
-#define CONF_STDIO_PINMUX_PAD2   EDBG_CDC_SERCOM_PINMUX_PAD2
-#define CONF_STDIO_PINMUX_PAD3   EDBG_CDC_SERCOM_PINMUX_PAD3
-#define CONF_STDIO_BAUDRATE      115200
-#endif
 
 /**
  * \brief Configure UART console.
@@ -198,6 +180,7 @@ int main(void)
 {
 	/* Initialize the board. */
 	system_init();
+	delay_init();
 
     /* Initialize the UART console. */
 	configure_console();

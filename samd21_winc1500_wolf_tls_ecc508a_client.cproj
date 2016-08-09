@@ -86,11 +86,11 @@
           <file path="ASF/common/components/wifi/winc1500/driver/source/nmuart.h" framework="" version="" source="common/components/wifi/winc1500/driver/source/nmuart.h" changed="False" content-id="Atmel.ASF" />
           <file path="tls_demo/main.h" framework="" version="" source="common/components/wifi/winc1500/simple_tcp_client_example/main.h" changed="False" content-id="Atmel.ASF" />
           <file path="tls_demo/main_samd21.c" framework="" version="" source="common/components/wifi/winc1500/simple_tcp_client_example/main_samd21.c" changed="False" content-id="Atmel.ASF" />
-          <file path="tls_demo/config/conf_board.h" framework="" version="" source="common/components/wifi/winc1500/simple_tcp_client_example/samd21j18a_samd21_xplained_pro/conf_board.h" changed="False" content-id="Atmel.ASF" />
-          <file path="tls_demo/config/conf_clocks.h" framework="" version="" source="common/components/wifi/winc1500/simple_tcp_client_example/samd21j18a_samd21_xplained_pro/conf_clocks.h" changed="False" content-id="Atmel.ASF" />
-          <file path="tls_demo/config/conf_extint.h" framework="" version="" source="common/components/wifi/winc1500/simple_tcp_client_example/samd21j18a_samd21_xplained_pro/conf_extint.h" changed="False" content-id="Atmel.ASF" />
-          <file path="tls_demo/config/conf_spi.h" framework="" version="" source="common/components/wifi/winc1500/simple_tcp_client_example/samd21j18a_samd21_xplained_pro/conf_spi.h" changed="False" content-id="Atmel.ASF" />
-          <file path="tls_demo/config/conf_winc.h" framework="" version="" source="common/components/wifi/winc1500/simple_tcp_client_example/samd21j18a_samd21_xplained_pro/conf_winc.h" changed="False" content-id="Atmel.ASF" />
+          <file path="config/conf_board.h" framework="" version="" source="common/components/wifi/winc1500/simple_tcp_client_example/samd21j18a_samd21_xplained_pro/conf_board.h" changed="False" content-id="Atmel.ASF" />
+          <file path="config/conf_clocks.h" framework="" version="" source="common/components/wifi/winc1500/simple_tcp_client_example/samd21j18a_samd21_xplained_pro/conf_clocks.h" changed="False" content-id="Atmel.ASF" />
+          <file path="config/conf_extint.h" framework="" version="" source="common/components/wifi/winc1500/simple_tcp_client_example/samd21j18a_samd21_xplained_pro/conf_extint.h" changed="False" content-id="Atmel.ASF" />
+          <file path="config/conf_spi.h" framework="" version="" source="common/components/wifi/winc1500/simple_tcp_client_example/samd21j18a_samd21_xplained_pro/conf_spi.h" changed="False" content-id="Atmel.ASF" />
+          <file path="config/conf_winc.h" framework="" version="" source="common/components/wifi/winc1500/simple_tcp_client_example/samd21j18a_samd21_xplained_pro/conf_winc.h" changed="False" content-id="Atmel.ASF" />
           <file path="tls_demo/script/tcp_server.py" framework="" version="" source="common/components/wifi/winc1500/simple_tcp_client_example/script/tcp_server.py" changed="False" content-id="Atmel.ASF" />
           <file path="ASF/common/components/wifi/winc1500/socket/include/socket.h" framework="" version="" source="common/components/wifi/winc1500/socket/include/socket.h" changed="False" content-id="Atmel.ASF" />
           <file path="ASF/common/components/wifi/winc1500/socket/source/socket.c" framework="" version="" source="common/components/wifi/winc1500/socket/source/socket.c" changed="False" content-id="Atmel.ASF" />
@@ -343,7 +343,7 @@
     <ListValues>
       <Value>../</Value>
       <Value>../tls_demo</Value>
-      <Value>../tls_demo/config</Value>
+      <Value>../config</Value>
       <Value>../tls_demo/certs</Value>
       <Value>../ASF</Value>
       <Value>../ASF/common</Value>
@@ -432,7 +432,7 @@
     <ListValues>
       <Value>../</Value>
       <Value>../tls_demo</Value>
-      <Value>../tls_demo/config</Value>
+      <Value>../config</Value>
       <Value>../tls_demo/certs</Value>
       <Value>../ASF</Value>
       <Value>../ASF/common</Value>
@@ -527,7 +527,7 @@
     <ListValues>
       <Value>../</Value>
       <Value>../tls_demo</Value>
-      <Value>../tls_demo/config</Value>
+      <Value>../config</Value>
       <Value>../tls_demo/certs</Value>
       <Value>../ASF</Value>
       <Value>../ASF/common</Value>
@@ -617,7 +617,7 @@
     <ListValues>
       <Value>../</Value>
       <Value>../tls_demo</Value>
-      <Value>../tls_demo/config</Value>
+      <Value>../config</Value>
       <Value>../tls_demo/certs</Value>
       <Value>../ASF</Value>
       <Value>../ASF/common</Value>
@@ -687,7 +687,7 @@
   <ItemGroup>
     <Folder Include="ASF\sam0\drivers\sercom\i2c\i2c_sam0\" />
     <Folder Include="tls_demo\" />
-    <Folder Include="tls_demo\config\" />
+    <Folder Include="config\" />
     <Folder Include="tls_demo\certs" />
     <Folder Include="ASF\" />
     <Folder Include="ASF\common2\" />
@@ -1253,19 +1253,19 @@
     <None Include="tls_demo\asf.h">
       <SubType>compile</SubType>
     </None>
-    <None Include="tls_demo\config\conf_clocks.h">
+    <None Include="config\conf_clocks.h">
       <SubType>compile</SubType>
     </None>
-    <None Include="tls_demo\config\conf_extint.h">
+    <None Include="config\conf_extint.h">
       <SubType>compile</SubType>
     </None>
-    <None Include="tls_demo\config\conf_spi.h">
+    <None Include="config\conf_spi.h">
       <SubType>compile</SubType>
     </None>
-    <None Include="tls_demo\config\conf_board.h">
+    <None Include="config\conf_board.h">
       <SubType>compile</SubType>
     </None>
-    <None Include="tls_demo\config\conf_winc.h">
+    <None Include="config\conf_winc.h">
       <SubType>compile</SubType>
     </None>
     <None Include="ASF\sam0\drivers\system\clock\clock.h">

@@ -92,9 +92,11 @@ INC_PATH = \
        ../wolfcrypt_test/build/gcc                        \
        sam0/boards                                        \
        sam0/boards/samd21_xplained_pro                    \
+       sam0/drivers/extint                                \
        sam0/drivers/port                                  \
        sam0/drivers/sercom                                \
        sam0/drivers/sercom/i2c                            \
+       sam0/drivers/sercom/spi                            \
        sam0/drivers/sercom/i2c/i2c_sam0                   \
        sam0/drivers/sercom/usart                          \
        sam0/drivers/rtc                                   \
@@ -117,6 +119,8 @@ INC_PATH = \
        sam0/utils/stdio/stdio_serial                      \
        ../CMSIS/Include                                   \
        ../CMSIS/Lib/GCC                                   \
+       ../config                                          \
+       ./                                                 \
        ../
 
 # Additional search paths for libraries.
@@ -173,7 +177,8 @@ CPPFLAGS = \
        -D EXTINT_CALLBACK_MODE=true                       \
        -D SYSTICK_MODE                                    \
        -D TCC_ASYNC=true                                  \
-       -D RTC_COUNT_ASYNC=true
+       -D RTC_COUNT_ASYNC=true                            \
+       -D SPI_CALLBACK_MODE=true
 
 # Copy CPPFLAGS to ASM flags
 ASFLAGS += $(CPPFLAGS)
