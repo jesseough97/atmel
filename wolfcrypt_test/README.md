@@ -27,6 +27,10 @@ For reference the benchmarks for RNG, AES, MD5, SHA and SHA256 are:
 
 The Atmel ATECC508A chips come from the factory un-programmed and need to be provisioned. Atmel provided us code as reference which exists in `cryptoauthlib/certs/provision.c`. The function is `atcatls_device_provision` and can be called more than once. If the device is not provisioned it will set it up with default slot settings. If its already provisioned it will skip.
 
+The programming interface is SWD. The SAMD21 Xplained Pro board has a built in J-Link programmer.
+
+You can configure your UART port in "config/conf_uart_serial.h" as either the UART at EXT2/EXT3 (PTB11 and PTB10 - default) or the EDBG CDC UART. The default baud rate is 115200. Use terminal software such as CoolTerm or Putty to interface to the console.
+
 ### Building
 
 The wolfCrypt test example is setup to be built from a terminal using GCC ARM and a Makefile in the `wolfcrypt_test/build/gcc` directory.

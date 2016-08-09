@@ -33,17 +33,17 @@ The TLS connection establishment time is 5.73 times faster with the ATECC508A.
 
 2. Load the "samd21_winc1500_wolf_tls_ecc508a_server.atsln" using Atmel Studio 7.
 
-3. Open "src/tls_common.h", And then edit MAIN_WLAN_SSID and MAIN_WLAN_PSK to access to your WI-FI AP.
+3. Open "tls_demo/tls_common.h", And then edit MAIN_WLAN_SSID and MAIN_WLAN_PSK to access to your WI-FI AP.
 `#define MAIN_WLAN_SSID      "AVRGUEST"`
 `#define MAIN_WLAN_PSK       "MicroController"`
 
-4. Connect D21's UART port to your terminal S/W such as CoolTerm or Putty.
+4. Configure your UART port in "config/conf_uart_serial.h". By default its setup to use the UART at PTB10/PTB11 on EXT2/EXT3. The configuration can easily be changed to use the built-in EDBG CDC UART. The default baud rate is 115200. Use terminal software such as CoolTerm or Putty.
 5. Build this project and run.
 6. Once dynamic IP is assigned correctly it will be displayed on the terminal. `M2M_WIFI_RESP_CON_STATE_CHANGED: CONNECTED`
 `M2M_WIFI_REQ_DHCP_CONF: IP is 192.168.1.241`
 `WINC is connected to ATMEL_409_2G successfully!`
 7. Load the "samd21_winc1500_wolf_tls_ecc508a_client.atsln" using Atmel Studio 7.
-8. Open "src/tls_client.h" and define TLS_SERVER_IP to address that your server was assigned.
+8. Open "tls_demo/tls_client.h" and define TLS_SERVER_IP to address that your server was assigned.
 9. Build and run this project.
 10. The TLS client should connect to the TLS server using ECDH-ECDSA.
 

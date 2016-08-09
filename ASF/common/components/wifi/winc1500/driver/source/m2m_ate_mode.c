@@ -4,7 +4,7 @@
  *
  * \brief NMC1500 Peripherials Application Interface.
  *
- * Copyright (c) 2014 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -22,9 +22,6 @@
  *
  * 3. The name of Atmel may not be used to endorse or promote products derived
  *    from this software without specific prior written permission.
- *
- * 4. This software may only be redistributed and used in connection with an
- *    Atmel microcontroller product.
  *
  * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
@@ -46,12 +43,12 @@
 /*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 INCLUDES
 *=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*/
-#include "driver\include\m2m_ate_mode.h"
-#include "driver\source\nmasic.h"
-#include "driver\source\nmdrv.h"
+#include "driver/include/m2m_ate_mode.h"
+#include "driver/source/nmasic.h"
+#include "driver/source/nmdrv.h"
 #include "m2m_hif.h"
-#include "driver\source\nmbus.h"
-#include "bsp\include\nm_bsp.h"
+#include "driver/source/nmbus.h"
+#include "bsp/include/nm_bsp.h"
 
 /*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 MACROS
@@ -106,7 +103,6 @@ volatile static uint32	gaAteFwTxRates[M2M_ATE_MAX_NUM_OF_RATES] =
 	0x06, 0x09, 0x0C, 0x12, 0x18, 0x24, 0x30, 0x36,	/*G-Rats*/
 	0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87	/*N-Rats*/
 };
-
 
 /*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 STATIC FUNCTIONS
@@ -377,8 +373,6 @@ sint8 m2m_ate_start_tx(tstrM2mAteTx * strM2mAteTx)
 		goto __EXIT;
 	}
 	
-
-	
 	s8Ret += nm_write_reg(rBurstTx_NMI_USE_PMU, strM2mAteTx->use_pmu);
 	s8Ret += nm_write_reg(rBurstTx_NMI_TX_PHY_CONT, strM2mAteTx->phy_burst_tx);
 	s8Ret += nm_write_reg(rBurstTx_NMI_NUM_TX_FRAMES, strM2mAteTx->num_frames);
@@ -471,7 +465,7 @@ sint8 m2m_ate_get_rx_status(void)
 */
 sint8 m2m_ate_start_rx(tstrM2mAteRx * strM2mAteRxStr)
 {
-	sint8		s8Ret = M2M_SUCCESS;
+	sint8	s8Ret = M2M_SUCCESS;
 	uint32  	val32;
 	if(NULL == strM2mAteRxStr) 
 	{
