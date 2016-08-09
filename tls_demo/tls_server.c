@@ -409,16 +409,6 @@ void tls_start_server(void)
 			break;
 		}
 
-		/* Initialize the CryptoAuthLib to communicate with ATECC508A */
-		cfg_ateccx08a_i2c_default.atcai2c.slave_address = DEVICE_I2C;
-		atcatls_init( &cfg_ateccx08a_i2c_default );
-	
-		ret = tls_init_enc_key();
-		if (ret != ATCA_SUCCESS) {
-			printf("Failed to initialize parent key\r\n");
-			break;
-		}
-
 		ret = tls_build_signer_ca_cert();
 		if (ret != ATCACERT_E_SUCCESS) {
 			printf("Failed to build client's signer certificate!\r\n");
