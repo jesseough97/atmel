@@ -37,7 +37,7 @@
 #
 
 # Path to top level ASF directory relative to this project directory.
-PRJ_PATH = ../../../../..
+PRJ_PATH = ../../../ASF
 
 # Target CPU architecture: cortex-m3, cortex-m4
 ARCH = cortex-m0plus
@@ -54,7 +54,7 @@ TARGET_SRAM = wolfcrypt_sram.elf
 CSRCS = \
        common/utils/interrupt/interrupt_sam_nvic.c        \
        common2/services/delay/sam0/systick_counter.c      \
-       sam0/applications/wolfcrypt/main.c                 \
+       ../wolfcrypt_test/main.c                           \
        sam0/boards/samd21_xplained_pro/board_init.c       \
        sam0/drivers/port/port.c                           \
        sam0/drivers/sercom/i2c/i2c_sam0/i2c_master.c      \
@@ -87,9 +87,9 @@ INC_PATH = \
        common/services/serial                             \
        common2/services/delay                             \
        common/utils                                       \
-       sam0/applications/wolfcrypt                        \
-       sam0/applications/wolfcrypt/samd21j18a_samd21_xplained_pro \
-       sam0/applications/wolfcrypt/samd21j18a_samd21_xplained_pro/gcc \
+       ../wolfcrypt_test                                  \
+       ../wolfcrypt_test/build                            \
+       ../wolfcrypt_test/build/gcc                        \
        sam0/boards                                        \
        sam0/boards/samd21_xplained_pro                    \
        sam0/drivers/port                                  \

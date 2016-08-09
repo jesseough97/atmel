@@ -2,6 +2,5 @@
 
 This package contains the following:
 
-1. Atmel Studio client / server TLS examples using PK_CALLBACKS. See [README.md](./src/README.md).
-2. Atmel ASF Framework wolfCrypt example using GCC ARM Makefile. See [README.md](ASF/sam0/applications/wolfcrypt/README.md)
-
+1. Atmel Studio client / server TLS examples using PK_CALLBACKS. See [tls_demo/README.md](./tls_demo/README.md)
+2. Atmel ASF Framework wolfCrypt example using GCC ARM Makefile. See [wolfcrypt_test/README.md](./wolfcrypt_test/README.md)
