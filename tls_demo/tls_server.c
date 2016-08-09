@@ -44,7 +44,8 @@
 
 #include "tls_server.h"
 #include "tls_common.h"
-#include "wolfplugin/atecc508/atecc508cb.h"
+#include <wolfssl/ssl.h>
+#include <wolfssl/wolfcrypt/port/atmel/atmel.h>
 #include "cryptoauthlib.h"
 #include "tls/atcatls.h"
 #include "atcacert/atcacert_client.h"
@@ -328,7 +329,7 @@ int tls_release_objects(void)
 {
 	wolfSSL_shutdown(ssl_server);
 
-	wolfSSL_Free(ssl_server);
+	wolfSSL_free(ssl_server);
 
 	wolfSSL_CTX_free(ctx_server);
 
