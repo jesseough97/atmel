@@ -44,13 +44,12 @@
 
 #include "asf.h"
 #include "main.h"
-#if defined(WOLFSSL_ATECC508A)
+
 #include <wolfssl/wolfssl/wolfcrypt/settings.h>
-#ifdef NO_WOLFSSL_CLIENT
-#include "tls_server.h"
+#ifdef TLS_SERVER
+	#include "tls_server.h"
 #else
-#include "tls_client.h"
-#endif
+	#include "tls_client.h"
 #endif
 
 /** UART module for debug. */
@@ -203,14 +202,12 @@ int main(void)
     /* Initialize the UART console. */
 	configure_console();
 
-#if defined(NO_WOLFSSL_CLIENT)
+#ifdef TLS_SERVER
 	/* Start server thread for tls. */
 	tls_start_server();
-#elif defined(NO_WOLFSSL_SERVER)
+#else
 	/* Start client thread for tls. */
 	tls_start_client();
-#else
-	/* Nothing to do. */
 #endif
 
 	return 0;

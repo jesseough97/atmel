@@ -52,6 +52,9 @@ extern "C" {
 #undef  KEEP_PEER_CERT
 #define KEEP_PEER_CERT
 
+#undef  HAVE_PK_CALLBACKS
+#define HAVE_PK_CALLBACKS
+
 
 /* ------------------------------------------------------------------------- */
 /* Crypto */
