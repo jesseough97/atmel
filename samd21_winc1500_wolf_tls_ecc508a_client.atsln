@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Atmel Studio Solution File, Format Version 11.00
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "samd21_winc1500_wolf_tls_ecc508a_client", "samd21_winc1500_wolf_tls_ecc508a_client.cproj", "{BE8EEB2F-765D-41F3-A5E4-D84662087E0F}"
 EndProject
 Global
@@ -9,10 +11,10 @@ Global
 		Release|ARM = Release|ARM
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BE8EEB2F-765D-41F3-A5E4-D84662087E0F}.Debug|ARM.ActiveCfg = Debug|ARM
-		{BE8EEB2F-765D-41F3-A5E4-D84662087E0F}.Debug|ARM.Build.0 = Debug|ARM
-		{BE8EEB2F-765D-41F3-A5E4-D84662087E0F}.Release|ARM.ActiveCfg = Release|ARM
-		{BE8EEB2F-765D-41F3-A5E4-D84662087E0F}.Release|ARM.Build.0 = Release|ARM
+		{BE8EEB2F-765D-41F3-A5E4-D84662087E0F}.Debug|ARM.ActiveCfg = DebugClient|ARM
+		{BE8EEB2F-765D-41F3-A5E4-D84662087E0F}.Debug|ARM.Build.0 = DebugClient|ARM
+		{BE8EEB2F-765D-41F3-A5E4-D84662087E0F}.Release|ARM.ActiveCfg = ReleaseClient|ARM
+		{BE8EEB2F-765D-41F3-A5E4-D84662087E0F}.Release|ARM.Build.0 = ReleaseClient|ARM
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
