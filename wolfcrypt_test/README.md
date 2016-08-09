@@ -2,6 +2,26 @@
 
 This example demonstrates the wolfCrypt test and benchmark applications with the Atmel ATECC508 ECC 256-bit hardware accelerator.
 
+## Benchmarks
+Software only implementation (SAMD21 48Mhz Cortex-M0, Fast Math TFM-ASM):
+`ECC  256 key generation  3123.000 milliseconds, avg over 5 iterations`
+`EC-DHE   key agreement   3117.000 milliseconds, avg over 5 iterations`
+`EC-DSA   sign   time     1997.000 milliseconds, avg over 5 iterations`
+`EC-DSA   verify time     5057.000 milliseconds, avg over 5 iterations`
+
+ATECC508A HW accelerated implementation:
+`ECC  256 key generation  144.400 milliseconds, avg over 5 iterations`
+`EC-DHE   key agreement   134.200 milliseconds, avg over 5 iterations`
+`EC-DSA   sign   time     293.400 milliseconds, avg over 5 iterations`
+`EC-DSA   verify time     208.400 milliseconds, avg over 5 iterations`
+
+For reference the benchmarks for RNG, AES, MD5, SHA and SHA256 are:
+`RNG      25 kB took 0.784 seconds,    0.031 MB/s (coming from the ATECC508A)`
+`AES      25 kB took 0.177 seconds,    0.138 MB/s`
+`MD5      25 kB took 0.050 seconds,    0.488 MB/s`
+`SHA      25 kB took 0.141 seconds,    0.173 MB/s`
+`SHA-256  25 kB took 0.352 seconds,    0.069 MB/s`
+
 ## Installation
 ### Setup
 
@@ -9,19 +29,19 @@ The Atmel ATECC508A chips come from the factory un-programmed and need to be pro
 
 ### Building
 
-The wolfCrypt test example is setup to be built from a terminal using GCC ARM and a Makefile in the `ASF/sam0/applications/wolfcrypt/samd21j18a_samd21_xplained_pro/gcc` directory.
+The wolfCrypt test example is setup to be built from a terminal using GCC ARM and a Makefile in the `wolfcrypt_test/build/gcc` directory.
 
 Example:
 
 ```
-cd ASF/sam0/applications/wolfcrypt/samd21j18a_samd21_xplained_pro/gcc
+cd wolfcrypt_test/build/gcc
 make
 MKDIR   common/utils/interrupt/
 CC      common/utils/interrupt/interrupt_sam_nvic.o
 MKDIR   common2/services/delay/sam0/
 CC      common2/services/delay/sam0/systick_counter.o
-MKDIR   sam0/applications/wolfcrypt/
-CC      sam0/applications/wolfcrypt/main.o
+MKDIR   ../wolfcrypt_test/
+CC      ../wolfcrypt_test/main.o
 MKDIR   sam0/boards/samd21_xplained_pro/
 CC      sam0/boards/samd21_xplained_pro/board_init.o
 MKDIR   sam0/drivers/port/
@@ -134,10 +154,10 @@ section               size         addr
 .debug_aranges      0x19b0          0x0
 .debug_ranges       0x16d0          0x0
 .debug_macro       0x227b2          0x0
-.debug_line        0x1af9d          0x0
-.debug_str         0x9f17e          0x0
+.debug_line        0x1a9a1          0x0
+.debug_str         0x9f0f2          0x0
 .debug_frame        0x6670          0x0
-Total             0x14c0a0
+Total             0x14ba18
 
 
    text	   data	    bss	    dec	    hex	filename
@@ -151,36 +171,15 @@ OBJCOPY wolfcrypt_flash.bin
 ### Programming
 Use the resulting wolfcrypt_flash.bin to program your microcontroller using JTAG.
 
-Using edgb (see included `gcc/flash.sh` script):
+Using edgb (see included `wolfcrypt_test/build/gcc/flash.sh` script):
 `edbg -bpv -t atmel_cm0p -f ./wolfcrypt_flash.bin`
 
 ### Debugging
 
-GDB with pipe (see included `gcc/debug.sh` script):
+GDB with pipe (see included `wolfcrypt_test/build/gcc/debug.sh` script):
 `arm-none-eabi-gdb wolfcrypt_flash.elf -ex 'target remote | openocd -c "gdb_port pipe;" -f ../../../../utils/openocd/atmel_samd21_xplained_pro.cfg'
 load`
 
 GDB with remote port:
 `arm-none-eabi-gdb wolfcrypt_flash.elf -ex 'target remote localhost:9993'`
 `openocd -c "gdb_port 9993;" -f ../../../../utils/openocd/atmel_samd21_xplained_pro.cfg`
-
-
-## Benchmarks
-Software only implementation (SAMD21 48Mhz Cortex-M0, Fast Math TFM-ASM):
-`ECC  256 key generation  3123.000 milliseconds, avg over 5 iterations`
-`EC-DHE   key agreement   3117.000 milliseconds, avg over 5 iterations`
-`EC-DSA   sign   time     1997.000 milliseconds, avg over 5 iterations`
-`EC-DSA   verify time     5057.000 milliseconds, avg over 5 iterations`
-
-ATECC508A HW accelerated implementation:
-`ECC  256 key generation  144.400 milliseconds, avg over 5 iterations`
-`EC-DHE   key agreement   134.200 milliseconds, avg over 5 iterations`
-`EC-DSA   sign   time     293.400 milliseconds, avg over 5 iterations`
-`EC-DSA   verify time     208.400 milliseconds, avg over 5 iterations`
-
-For reference the benchmarks for RNG, AES, MD5, SHA and SHA256 are:
-`RNG      25 kB took 0.784 seconds,    0.031 MB/s (coming from the ATECC508A)`
-`AES      25 kB took 0.177 seconds,    0.138 MB/s`
-`MD5      25 kB took 0.050 seconds,    0.488 MB/s`
-`SHA      25 kB took 0.141 seconds,    0.173 MB/s`
-`SHA-256  25 kB took 0.352 seconds,    0.069 MB/s`

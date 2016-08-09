@@ -1,52 +1,55 @@
-TLS Demo Project using ATECC508A and WINC1500           {#mainpage}
-==================================================
+# TLS Demo Project using ATECC508A and WINC1500
 
-Introduction
-------------------------
-The end goal of this project is to show that the "TLS-ECDH-ECDSA-AES128-GCM-SHA256" cipher suite can be fully implemented 
-by using ATECC508A without exposing a private key on the TLS Software.
-Besides, this project can fullfill the RFC4492 that requests "ECDH_ECDSA" for Transport Layer Security.
 
-Prerequisites for this demo
------------------
+## Introduction
+
+The end goal of this project is to show that the "TLS-ECDH-ECDSA-AES128-GCM-SHA256" cipher suite can be fully implemented using the ATECC508A without exposing a private key. This project fullfills the RFC4492 for "ECDH_ECDSA" Transport Layer Security.
+
+## Prerequisites for this demo
+
 Software:
+
   - Atmel Studio 6.2 or
   - Atmel Studio 7
   
 Hardware:
+
   - Atmel SAMD21 Xplained Pro(2 pcs)
   - Atmel CryptoAuth Xplained Pro extension board(2 pcs)
   - Atmel WINC1500 extension board(2 pcs)
 
-How to run this project
---------------------------
-1. The CAX pro board should be personalized in advance using node-auth example.
+## Benchmarks
 
-2. Open "src/tls_common.h", And then edit MAIN_WLAN_SSID and MAIN_WLAN_PSK to access to your WI-FI AP.
-```bash
-#define MAIN_WLAN_SSID      "AVRGUEST"			/**< Destination SSID */
-#define MAIN_WLAN_PSK       "MicroController"	/**< Password for Destination SSID */
+TLS Establishment Times:
+
+* Hardware accelerated ATECC508A: 2.342 seconds avgerage
+* Software only: 13.422 seconds average
+
+The TLS connection establishment time is 5.73 times faster with the ATECC508A.
+
+## How to run this project
+
+1. The Atmel ATECC508A chips come from the factory un-programmed and need to be provisioned. Atmel provided us code as reference which exists in `cryptoauthlib/certs/provision.c`. The function is `atcatls_device_provision` and can be called more than once. If the device is not provisioned it will set it up with default slot settings. If its already provisioned it will skip.
+
+2. Load the "samd21_winc1500_wolf_tls_ecc508a_server.atsln" using Atmel Studio 7.
+
+3. Open "src/tls_common.h", And then edit MAIN_WLAN_SSID and MAIN_WLAN_PSK to access to your WI-FI AP.
+`#define MAIN_WLAN_SSID      "AVRGUEST"`
+`#define MAIN_WLAN_PSK       "MicroController"`
+
+4. Connect D21's UART port to your terminal S/W such as CoolTerm or Putty.
+5. Build this project and run.
+6. Once dynamic IP is assigned correctly it will be displayed on the terminal. `M2M_WIFI_RESP_CON_STATE_CHANGED: CONNECTED`
+`M2M_WIFI_REQ_DHCP_CONF: IP is 192.168.1.241`
+`WINC is connected to ATMEL_409_2G successfully!`
+7. Load the "samd21_winc1500_wolf_tls_ecc508a_client.atsln" using Atmel Studio 7.
+8. Open "src/tls_client.h" and define TLS_SERVER_IP to address that your server was assigned.
+9. Build and run this project.
+10. The TLS client should connect to the TLS server using ECDH-ECDSA.
+
+Here is an example log output:
+
 ```
-
-3. Make a empty folder to be used as a server project, And then copy "samd21_winc1500_wolf_tls_ecc508a" to the new folder. 
-   Edit both of directories's name to client and server.
-   Each folders then can be named to "samd21_winc1500_wolf_tls_ecc508a_client" and "samd21_winc1500_wolf_tls_ecc508a_server".
-
-4. Load the "samd21_winc1500_wolf_tls_ecc508a_server.atsln" using Atmel Studio 7,
-   Before building this project, connect D21's UART port to your terminal S/W such as the Putty and then build this project and run.
-   Once dynamic IP can be assigned correctly, You can see the IP adress that communicates with TLS client using your terminal.
-```bash
-M2M_WIFI_RESP_CON_STATE_CHANGED: CONNECTED
-M2M_WIFI_REQ_DHCP_CONF: IP is 192.168.1.241
-WINC is connected to ATMEL_409_2G successfully!
-```
-
-5. Load the "samd21_winc1500_wolf_tls_ecc508a_client.atsln" using Atmel Studio 7, 
-   And then open "src/tls_client.h", And then define TLS_SERVER_IP to address that your server received.
-   Build and run this project.
-   
-6. Make sure of communication logs bewteen two peer that is related ECDSA and ECDH.
-```bash
 -- TLS starts with ATECC508A over WINC module --
 (APP)(INFO)Chip ID 1502b1
 (APP)(INFO)Firmware ver   : 19.3.0
