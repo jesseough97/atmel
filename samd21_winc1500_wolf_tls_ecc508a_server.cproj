@@ -335,6 +335,7 @@
       <Value>USART_CALLBACK_MODE=true</Value>
       <Value>SYSTICK_MODE</Value>
       <Value>I2C_MASTER_CALLBACK_MODE=true</Value>
+      <Value>WOLFSSL_USER_SETTINGS</Value>
       <Value>TLS_SERVER</Value>
     </ListValues>
   </armgcc.compiler.symbols.DefSymbols>
@@ -514,7 +515,7 @@
       <Value>EXTINT_CALLBACK_MODE=true</Value>
       <Value>SPI_CALLBACK_MODE=true</Value>
       <Value>USART_CALLBACK_MODE=true</Value>
-      <Value>CYCLE_MODE</Value>
+      <Value>SYSTICK_MODE</Value>
       <Value>I2C_MASTER_CALLBACK_MODE=false</Value>
       <Value>WOLFSSL_USER_SETTINGS</Value>
       <Value>ATCA_HAL_I2C</Value>
@@ -1276,10 +1277,10 @@
     <None Include="ASF\common\components\wifi\winc1500\driver\source\nmuart.h">
       <SubType>compile</SubType>
     </None>
-    <Compile Include="ASF\common2\services\delay\sam0\cycle_counter.c">
+    <Compile Include="ASF\common2\services\delay\sam0\systick_counter.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="ASF\common2\services\delay\sam0\cycle_counter.h">
+    <Compile Include="ASF\common2\services\delay\sam0\systick_counter.h">
       <SubType>compile</SubType>
     </Compile>
     <None Include="ASF\sam0\utils\cmsis\samd21\include\pio\samd21g15a.h">
