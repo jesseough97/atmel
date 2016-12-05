@@ -103,10 +103,10 @@ const char* tls_get_socket_string(int callback_status)
         return "SENDTO socket event";
 
     case SOCKET_MSG_RECVFROM :
-        return "RECVFROM socket event";		
+        return "RECVFROM socket event";
 
     default :
-        return "UNKNOWN socket event";		
+        return "UNKNOWN socket event";
     }
 }
 
@@ -135,13 +135,13 @@ void tls_wifi_callback(uint8_t u8MsgType, void *pvMsg)
 		case M2M_WIFI_RESP_CON_STATE_CHANGED:
 		{
 			tstrM2mWifiStateChanged *pstrWifiState = (tstrM2mWifiStateChanged *)pvMsg;
-            
+
 			if (pstrWifiState->u8CurrState == M2M_WIFI_CONNECTED) {
 				printf("M2M_WIFI_RESP_CON_STATE_CHANGED: CONNECTED\r\n");
 			} else if (pstrWifiState->u8CurrState == M2M_WIFI_DISCONNECTED) {
 				printf("M2M_WIFI_RESP_CON_STATE_CHANGED: DISCONNECTED\r\n");
 				tls_set_wifi_status(M2M_WIFI_DISCONNECTED);
-				m2m_wifi_connect((char *)MAIN_WLAN_SSID, sizeof(MAIN_WLAN_SSID), 
+				m2m_wifi_connect((char *)MAIN_WLAN_SSID, sizeof(MAIN_WLAN_SSID),
 					MAIN_WLAN_AUTH, (char *)MAIN_WLAN_PSK, M2M_WIFI_CH_ALL);
 			}
 			break;
@@ -169,7 +169,7 @@ void tls_wifi_callback(uint8_t u8MsgType, void *pvMsg)
  */
 void tls_set_ntp_socket(SOCKET socket)
 {
-    tls_ntp_socket = socket;    
+    tls_ntp_socket = socket;
 }
 
 /**
@@ -200,7 +200,7 @@ int tls_set_curr_time_and_date(uint32_t secsSince1900)
         {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
         {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
     };
-    
+
     dayclock = (unsigned long)secs % SECS_DAY;
     dayno    = (unsigned long)secs / SECS_DAY;
 
@@ -228,7 +228,7 @@ int tls_set_curr_time_and_date(uint32_t secsSince1900)
 
     curr_time_date.tm_year += 1900;
     curr_time_date.tm_mon += 1;
-	
+
 	printf("Date of Today : %d / %d / %d\r\n", curr_time_date.tm_year, curr_time_date.tm_mon, curr_time_date.tm_mday);
     return ret;
 
@@ -257,7 +257,7 @@ int tls_get_ntp_time_and_date(void)
 	int ret = 0;
 	SOCKET ntp_socket = -1;
 	struct sockaddr_in addr;
-	
+
 	ntp_socket = socket(AF_INET, SOCK_DGRAM, 0);
 	if (ntp_socket < 0) {
 		printf("main: UDP Client Socket Creation Failed.\r\n");
@@ -272,14 +272,14 @@ int tls_get_ntp_time_and_date(void)
 	if (bind((SOCKET)tls_get_ntp_socket(), (struct sockaddr *)&addr, sizeof(struct sockaddr_in)) != 0) {
 		printf("binding failed.\r\n");
 		close(tls_get_ntp_socket);
-		return -1;        
+		return -1;
 	}
 
 	while (!GET_NTP_SOCKET_STATUS(NTP_SOCKET_STATUS_RECEIVE_FROM)) {
 		m2m_wifi_handle_events(NULL);
 	}
 
-	return ret;    
+	return ret;
 }
 
 /**
@@ -293,7 +293,7 @@ void tls_ntp_socket_cb(SOCKET sock, uint8_t u8Msg, void *pvMsg)
 {
 	/* Check for socket event on socket. */
 	int16_t ret;
-  
+
 	switch (u8Msg) {
 	case SOCKET_MSG_BIND:
 	{
@@ -323,7 +323,7 @@ void tls_ntp_socket_cb(SOCKET sock, uint8_t u8Msg, void *pvMsg)
             { 731, 762, 790, 821, 851, 882, 912, 943, 974,1004,1035,1065},
             {1096,1127,1155,1186,1216,1247,1277,1308,1339,1369,1400,1430},
         };
-        
+
 		tstrSocketRecvMsg *pstrRx = (tstrSocketRecvMsg *)pvMsg;
 		if (pstrRx->pu8Buffer && pstrRx->s16BufferSize) {
 			uint8_t packetBuffer[48];
@@ -399,13 +399,13 @@ void tls_ntp_resolve_cb(uint8_t *pu8DomainName, uint32_t u32ServerIP)
 int tls_compare_date(t_time_date *local, atcacert_tm_utc_t *cert)
 {
 	uint8_t ret = 0;
-	
+
     if (local->tm_year > cert->tm_year)
         return 1;
 
     if (local->tm_year == cert->tm_year && local->tm_mon > cert->tm_mon)
         return 1;
-    
+
     if (local->tm_year == cert->tm_year && local->tm_mon == cert->tm_mon && local->tm_mday > cert->tm_mday)
         return 1;
 
@@ -448,9 +448,9 @@ int tls_receive_packet_cb(WOLFSSL *ssl, char *buf, int sz, void *ctx)
     	while (!GET_SOCKET_STATUS(SOCKET_STATUS_RECEIVE)) {
     		m2m_wifi_handle_events(NULL);
     	}
-	
+
     	DISABLE_SOCKET_STATUS(SOCKET_STATUS_RECEIVE);
-        
+
         if (recvd < 0) {
             printf("Failed to receive packet\r\n");
     		return -1;
@@ -467,15 +467,15 @@ int tls_receive_packet_cb(WOLFSSL *ssl, char *buf, int sz, void *ctx)
 	if (sz > recvd) {
 	    sz = recvd;
 	}
-    
+
     memcpy(buf, &gTlsSocketBuf[info->bufPos], sz);
     info->bufPos += sz;
     info->bufRemain -= sz;
-    
+
     atcab_printbin_label((const uint8_t*)"\r\nRECEIVED PACKET", buf, sz);
 
     return sz;
-}	
+}
 
 
 
@@ -501,6 +501,8 @@ static int tls_set_enc_key(uint8_t* enckey, int16_t keysize)
  * \brief Create pre master secret using peer's public key and self private key.
  */
  int tls_create_pms_cb(WOLFSSL* ssl,
+        const unsigned char* otherKeyDer, unsigned int otherKeySz,
+        unsigned int otherKeyId,
         unsigned char* pubKeyDer, unsigned int* pubKeySz,
         unsigned char* out, unsigned int* outlen,
         int side, void* ctx)
@@ -514,6 +516,10 @@ static int tls_set_enc_key(uint8_t* enckey, int16_t keysize)
 	}
 
 	(void)ctx;
+    (void)otherKeyDer;
+    (void)otherKeySz;
+    (void)otherKeyId;
+
 
 	if (side == WOLFSSL_CLIENT_END) {
 	    ret = atcacert_get_subj_public_key(&g_cert_def_end_user,
