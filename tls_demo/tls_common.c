@@ -500,9 +500,7 @@ static int tls_set_enc_key(uint8_t* enckey, int16_t keysize)
 /**
  * \brief Create pre master secret using peer's public key and self private key.
  */
- int tls_create_pms_cb(WOLFSSL* ssl,
-        const unsigned char* otherKeyDer, unsigned int otherKeySz,
-        unsigned int otherKeyId,
+ int tls_create_pms_cb(WOLFSSL* ssl, ecc_key* otherKey,
         unsigned char* pubKeyDer, unsigned int* pubKeySz,
         unsigned char* out, unsigned int* outlen,
         int side, void* ctx)
@@ -516,10 +514,7 @@ static int tls_set_enc_key(uint8_t* enckey, int16_t keysize)
 	}
 
 	(void)ctx;
-    (void)otherKeyDer;
-    (void)otherKeySz;
-    (void)otherKeyId;
-
+    (void)otherKey;
 
 	if (side == WOLFSSL_CLIENT_END) {
 	    ret = atcacert_get_subj_public_key(&g_cert_def_end_user,

@@ -137,9 +137,7 @@ static unsigned char FAKE_KEY_BUFFER[] = {
 
 
 /** WolfSSL callback functions to communicate to ATECC508A. */
-int tls_create_pms_cb(struct WOLFSSL* ssl,
-        const unsigned char* otherKeyDer, unsigned int otherKeySz,
-        unsigned int otherKeyId,
+int tls_create_pms_cb(struct WOLFSSL* ssl, ecc_key* otherKey,
         unsigned char* pubKeyDer, unsigned int* pubKeySz,
         unsigned char* out, unsigned int* outlen,
         int side, void* ctx);
