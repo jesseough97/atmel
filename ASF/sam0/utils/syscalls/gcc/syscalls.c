@@ -3,7 +3,7 @@
  *
  * \brief Syscalls for SAM0 (GCC).
  *
- * Copyright (C) 2012-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2012-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -59,7 +59,6 @@ extern int _end;
 
 extern caddr_t _sbrk(int incr);
 extern int link(char *old, char *new);
-extern int _open(const char *name, int flags, int mode);
 extern int _close(int file);
 extern int _fstat(int file, struct stat *st);
 extern int _isatty(int file);
@@ -68,7 +67,7 @@ extern void _exit(int status);
 extern void _kill(int pid, int sig);
 extern int _getpid(void);
 
-caddr_t _sbrk(int incr)
+extern caddr_t _sbrk(int incr)
 {
 	static unsigned char *heap = NULL;
 	unsigned char *prev_heap;
@@ -83,55 +82,45 @@ caddr_t _sbrk(int incr)
 	return (caddr_t) prev_heap;
 }
 
-int link(char *old, char *new)
+extern int link(char *old, char *new)
 {
 	return -1;
 }
 
-// This stub function is required by stdlib
-int _open(const char *name, int flags, int mode)
-{
-    (void)name;
-    (void)flags;
-    (void)mode;
-    return -1;
-}
-
-int _close(int file)
+extern int _close(int file)
 {
 	return -1;
 }
 
-int _fstat(int file, struct stat *st)
+extern int _fstat(int file, struct stat *st)
 {
 	st->st_mode = S_IFCHR;
 
 	return 0;
 }
 
-int _isatty(int file)
+extern int _isatty(int file)
 {
 	return 1;
 }
 
-int _lseek(int file, int ptr, int dir)
+extern int _lseek(int file, int ptr, int dir)
 {
 	return 0;
 }
 
-void _exit(int status)
+extern void _exit(int status)
 {
-	printf("Exiting with status %d.\n", status);
-
+	asm("BKPT #0");
 	for (;;);
 }
 
-void _kill(int pid, int sig)
+extern void _kill(int pid, int sig)
 {
 	return;
 }
 
-int _getpid(void)
+extern int _getpid(void)
 {
 	return -1;
 }

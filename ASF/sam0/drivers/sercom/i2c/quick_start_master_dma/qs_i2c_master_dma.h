@@ -3,7 +3,7 @@
  *
  * \brief SAM SERCOM I2C Master Driver with DMA Quick Start Guide
  *
- * Copyright (C) 2014-2015 Atmel Corporation. All rights reserved.
+ * Copyright (C) 2014-2016 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -48,8 +48,10 @@
  *    - SAMD21 Xplained Pro
  *    - SAMR21 Xplained Pro
  *    - SAML21 Xplained Pro
+ *    - SAML22 Xplained Pro
  *    - SAMDA1 Xplained Pro
  *    - SAMC21 Xplained Pro
+ *    - SAMHA1G16A Xplained Pro
  *
  * In this use case, the I<SUP>2</SUP>C will used and set up as follows:
  *  - Master mode

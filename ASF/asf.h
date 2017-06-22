@@ -44,6 +44,8 @@
 #ifndef ASF_H
 #define ASF_H
 
+#define RTC_CALENDAR_ASYNC false
+
 /*
  * This file includes all API header files for the selected drivers from ASF.
  * Note: There might be duplicate includes required by more than one driver.

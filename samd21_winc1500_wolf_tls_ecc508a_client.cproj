@@ -143,8 +143,8 @@
           <file path="ASF/sam0/drivers/system/pinmux/pinmux.c" framework="" version="" source="sam0/drivers/system/pinmux/pinmux.c" changed="False" content-id="Atmel.ASF" />
           <file path="ASF/sam0/drivers/system/pinmux/pinmux.h" framework="" version="" source="sam0/drivers/system/pinmux/pinmux.h" changed="False" content-id="Atmel.ASF" />
           <file path="ASF/sam0/drivers/system/pinmux/quick_start/qs_pinmux_basic.h" framework="" version="" source="sam0/drivers/system/pinmux/quick_start/qs_pinmux_basic.h" changed="False" content-id="Atmel.ASF" />
-          <file path="ASF/sam0/drivers/system/power/power_sam_d_r/power.h" framework="" version="" source="sam0/drivers/system/power/power_sam_d_r/power.h" changed="False" content-id="Atmel.ASF" />
-          <file path="ASF/sam0/drivers/system/reset/reset_sam_d_r/reset.h" framework="" version="" source="sam0/drivers/system/reset/reset_sam_d_r/reset.h" changed="False" content-id="Atmel.ASF" />
+          <file path="ASF/sam0/drivers/system/power/power_sam_d_r_h/power.h" framework="" version="" source="sam0/drivers/system/power/power_sam_d_r_h/power.h" changed="False" content-id="Atmel.ASF" />
+          <file path="ASF/sam0/drivers/system/reset/reset_sam_d_r_h/reset.h" framework="" version="" source="sam0/drivers/system/reset/reset_sam_d_r_h/reset.h" changed="False" content-id="Atmel.ASF" />
           <file path="ASF/sam0/drivers/system/system.c" framework="" version="" source="sam0/drivers/system/system.c" changed="False" content-id="Atmel.ASF" />
           <file path="ASF/sam0/drivers/system/system.h" framework="" version="" source="sam0/drivers/system/system.h" changed="False" content-id="Atmel.ASF" />
           <file path="ASF/sam0/utils/cmsis/samd21/include/component/ac.h" framework="" version="" source="sam0/utils/cmsis/samd21/include/component/ac.h" changed="False" content-id="Atmel.ASF" />
@@ -379,7 +379,7 @@
       <Value>../ASF/sam0/drivers/extint/extint_sam_d_r</Value>
       <Value>../ASF/sam0/drivers/port</Value>
       <Value>../ASF/sam0/drivers/rtc</Value>
-      <Value>../ASF/sam0/drivers/rtc/rtc_sam_d_r</Value>
+      <Value>../ASF/sam0/drivers/rtc/rtc_sam_d_r_h</Value>
       <Value>../ASF/sam0/drivers/sercom</Value>
       <Value>../ASF/sam0/drivers/sercom/i2c</Value>
       <Value>../ASF/sam0/drivers/sercom/i2c/i2c_sam0</Value>
@@ -387,14 +387,14 @@
       <Value>../ASF/sam0/drivers/sercom/usart</Value>
       <Value>../ASF/sam0/drivers/system</Value>
       <Value>../ASF/sam0/drivers/system/clock</Value>
-      <Value>../ASF/sam0/drivers/system/clock/clock_samd21_r21_da</Value>
+      <Value>../ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1</Value>
       <Value>../ASF/sam0/drivers/system/interrupt</Value>
       <Value>../ASF/sam0/drivers/system/interrupt/system_interrupt_samd21</Value>
       <Value>../ASF/sam0/drivers/system/pinmux</Value>
       <Value>../ASF/sam0/drivers/system/power</Value>
-      <Value>../ASF/sam0/drivers/system/power/power_sam_d_r</Value>
+      <Value>../ASF/sam0/drivers/system/power/power_sam_d_r_h</Value>
       <Value>../ASF/sam0/drivers/system/reset</Value>
-      <Value>../ASF/sam0/drivers/system/reset/reset_sam_d_r</Value>
+      <Value>../ASF/sam0/drivers/system/reset/reset_sam_d_r_h</Value>
       <Value>../ASF/sam0/utils</Value>
       <Value>../ASF/sam0/utils/preprocessor</Value>
       <Value>../ASF/sam0/utils/cmsis/samd21/include</Value>
@@ -468,7 +468,7 @@
       <Value>../ASF/sam0/drivers/extint/extint_sam_d_r</Value>
       <Value>../ASF/sam0/drivers/port</Value>
       <Value>../ASF/sam0/drivers/rtc</Value>
-      <Value>../ASF/sam0/drivers/rtc/rtc_sam_d_r</Value>
+      <Value>../ASF/sam0/drivers/rtc/rtc_sam_d_r_h</Value>
       <Value>../ASF/sam0/drivers/sercom</Value>
       <Value>../ASF/sam0/drivers/sercom/i2c</Value>
       <Value>../ASF/sam0/drivers/sercom/i2c/i2c_sam0</Value>
@@ -476,14 +476,14 @@
       <Value>../ASF/sam0/drivers/sercom/usart</Value>
       <Value>../ASF/sam0/drivers/system</Value>
       <Value>../ASF/sam0/drivers/system/clock</Value>
-      <Value>../ASF/sam0/drivers/system/clock/clock_samd21_r21_da</Value>
+      <Value>../ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1</Value>
       <Value>../ASF/sam0/drivers/system/interrupt</Value>
       <Value>../ASF/sam0/drivers/system/interrupt/system_interrupt_samd21</Value>
       <Value>../ASF/sam0/drivers/system/pinmux</Value>
       <Value>../ASF/sam0/drivers/system/power</Value>
-      <Value>../ASF/sam0/drivers/system/power/power_sam_d_r</Value>
+      <Value>../ASF/sam0/drivers/system/power/power_sam_d_r_h</Value>
       <Value>../ASF/sam0/drivers/system/reset</Value>
-      <Value>../ASF/sam0/drivers/system/reset/reset_sam_d_r</Value>
+      <Value>../ASF/sam0/drivers/system/reset/reset_sam_d_r_h</Value>
       <Value>../ASF/sam0/utils</Value>
       <Value>../ASF/sam0/utils/preprocessor</Value>
       <Value>../ASF/sam0/utils/cmsis/samd21/include</Value>
@@ -563,7 +563,7 @@
       <Value>../ASF/sam0/drivers/extint/extint_sam_d_r</Value>
       <Value>../ASF/sam0/drivers/port</Value>
       <Value>../ASF/sam0/drivers/rtc</Value>
-      <Value>../ASF/sam0/drivers/rtc/rtc_sam_d_r</Value>
+      <Value>../ASF/sam0/drivers/rtc/rtc_sam_d_r_h</Value>
       <Value>../ASF/sam0/drivers/sercom</Value>
       <Value>../ASF/sam0/drivers/sercom/i2c</Value>
       <Value>../ASF/sam0/drivers/sercom/i2c/i2c_sam0</Value>
@@ -571,14 +571,14 @@
       <Value>../ASF/sam0/drivers/sercom/usart</Value>
       <Value>../ASF/sam0/drivers/system</Value>
       <Value>../ASF/sam0/drivers/system/clock</Value>
-      <Value>../ASF/sam0/drivers/system/clock/clock_samd21_r21_da</Value>
+      <Value>../ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1</Value>
       <Value>../ASF/sam0/drivers/system/interrupt</Value>
       <Value>../ASF/sam0/drivers/system/interrupt/system_interrupt_samd21</Value>
       <Value>../ASF/sam0/drivers/system/pinmux</Value>
       <Value>../ASF/sam0/drivers/system/power</Value>
-      <Value>../ASF/sam0/drivers/system/power/power_sam_d_r</Value>
+      <Value>../ASF/sam0/drivers/system/power/power_sam_d_r_h</Value>
       <Value>../ASF/sam0/drivers/system/reset</Value>
-      <Value>../ASF/sam0/drivers/system/reset/reset_sam_d_r</Value>
+      <Value>../ASF/sam0/drivers/system/reset/reset_sam_d_r_h</Value>
       <Value>../ASF/sam0/utils</Value>
       <Value>../ASF/sam0/utils/preprocessor</Value>
       <Value>../ASF/sam0/utils/cmsis/samd21/include</Value>
@@ -653,7 +653,7 @@
       <Value>../ASF/sam0/drivers/extint/extint_sam_d_r</Value>
       <Value>../ASF/sam0/drivers/port</Value>
       <Value>../ASF/sam0/drivers/rtc</Value>
-      <Value>../ASF/sam0/drivers/rtc/rtc_sam_d_r</Value>
+      <Value>../ASF/sam0/drivers/rtc/rtc_sam_d_r_h</Value>
       <Value>../ASF/sam0/drivers/sercom</Value>
       <Value>../ASF/sam0/drivers/sercom/i2c</Value>
       <Value>../ASF/sam0/drivers/sercom/i2c/i2c_sam0</Value>
@@ -661,14 +661,14 @@
       <Value>../ASF/sam0/drivers/sercom/usart</Value>
       <Value>../ASF/sam0/drivers/system</Value>
       <Value>../ASF/sam0/drivers/system/clock</Value>
-      <Value>../ASF/sam0/drivers/system/clock/clock_samd21_r21_da</Value>
+      <Value>../ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1</Value>
       <Value>../ASF/sam0/drivers/system/interrupt</Value>
       <Value>../ASF/sam0/drivers/system/interrupt/system_interrupt_samd21</Value>
       <Value>../ASF/sam0/drivers/system/pinmux</Value>
       <Value>../ASF/sam0/drivers/system/power</Value>
-      <Value>../ASF/sam0/drivers/system/power/power_sam_d_r</Value>
+      <Value>../ASF/sam0/drivers/system/power/power_sam_d_r_h</Value>
       <Value>../ASF/sam0/drivers/system/reset</Value>
-      <Value>../ASF/sam0/drivers/system/reset/reset_sam_d_r</Value>
+      <Value>../ASF/sam0/drivers/system/reset/reset_sam_d_r_h</Value>
       <Value>../ASF/sam0/utils</Value>
       <Value>../ASF/sam0/utils/preprocessor</Value>
       <Value>../ASF/sam0/utils/cmsis/samd21/include</Value>
@@ -746,15 +746,15 @@
     <Folder Include="ASF\sam0\drivers\sercom\usart\quick_start_dma\" />
     <Folder Include="ASF\sam0\drivers\system\" />
     <Folder Include="ASF\sam0\drivers\system\clock\" />
-    <Folder Include="ASF\sam0\drivers\system\clock\clock_samd21_r21_da\" />
+    <Folder Include="ASF\sam0\drivers\system\clock\clock_samd21_r21_da_ha1\" />
     <Folder Include="ASF\sam0\drivers\system\interrupt\" />
     <Folder Include="ASF\sam0\drivers\system\interrupt\system_interrupt_samd21\" />
     <Folder Include="ASF\sam0\drivers\system\pinmux\" />
     <Folder Include="ASF\sam0\drivers\system\pinmux\quick_start\" />
     <Folder Include="ASF\sam0\drivers\system\power\" />
-    <Folder Include="ASF\sam0\drivers\system\power\power_sam_d_r\" />
+    <Folder Include="ASF\sam0\drivers\system\power\power_sam_d_r_h\" />
     <Folder Include="ASF\sam0\drivers\system\reset\" />
-    <Folder Include="ASF\sam0\drivers\system\reset\reset_sam_d_r\" />
+    <Folder Include="ASF\sam0\drivers\system\reset\reset_sam_d_r_h\" />
     <Folder Include="ASF\sam0\utils\" />
     <Folder Include="ASF\sam0\utils\cmsis\" />
     <Folder Include="ASF\sam0\utils\cmsis\samd21\" />
@@ -825,16 +825,16 @@
     <Compile Include="ASF\sam0\drivers\sercom\i2c\i2c_sam0\i2c_master.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="ASF\sam0\drivers\system\clock\clock_samd21_r21_da\clock.c">
+    <Compile Include="ASF\sam0\drivers\system\clock\clock_samd21_r21_da_ha1\clock.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="ASF\sam0\drivers\system\clock\clock_samd21_r21_da\clock_config_check.h">
+    <Compile Include="ASF\sam0\drivers\system\clock\clock_samd21_r21_da_ha1\clock_config_check.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="ASF\sam0\drivers\system\clock\clock_samd21_r21_da\clock_feature.h">
+    <Compile Include="ASF\sam0\drivers\system\clock\clock_samd21_r21_da_ha1\clock_feature.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="ASF\sam0\drivers\system\clock\clock_samd21_r21_da\gclk.c">
+    <Compile Include="ASF\sam0\drivers\system\clock\clock_samd21_r21_da_ha1\gclk.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="tls_demo\certs\cert_def_end_user.c">
@@ -1431,7 +1431,7 @@
     <None Include="ASF\sam0\utils\cmsis\samd21\include\pio\samd21j16b.h">
       <SubType>compile</SubType>
     </None>
-    <None Include="ASF\sam0\drivers\system\reset\reset_sam_d_r\reset.h">
+    <None Include="ASF\sam0\drivers\system\reset\reset_sam_d_r_h\reset.h">
       <SubType>compile</SubType>
     </None>
     <None Include="ASF\sam0\utils\compiler.h">
@@ -1677,7 +1677,7 @@
     <None Include="ASF\sam0\utils\cmsis\samd21\source\system_samd21.h">
       <SubType>compile</SubType>
     </None>
-    <None Include="ASF\sam0\drivers\system\power\power_sam_d_r\power.h">
+    <None Include="ASF\sam0\drivers\system\power\power_sam_d_r_h\power.h">
       <SubType>compile</SubType>
     </None>
     <None Include="ASF\sam0\boards\samd21_xplained_pro\samd21_xplained_pro.h">

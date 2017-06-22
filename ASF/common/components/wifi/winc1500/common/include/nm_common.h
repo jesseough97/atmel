@@ -2,9 +2,9 @@
  *
  * \file
  *
- * \brief This module contains common APIs declarations.
+ * \brief WINC Driver Common API Declarations.
  *
- * Copyright (c) 2015 Atmel Corporation. All rights reserved.
+ * Copyright (c) 2016-2017 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
@@ -67,10 +67,8 @@
 #define M2M_ERR_FAIL		((sint8)-12)
 #define M2M_ERR_FW_VER_MISMATCH         ((sint8)-13)
 #define M2M_ERR_SCAN_IN_PROGRESS         ((sint8)-14)
-/*
-Invalid argument
-*/
 #define M2M_ERR_INVALID_ARG				 ((sint8)-15)
+#define M2M_ERR_INVALID					((sint8)-16)
 
 /*i2c MAASTER ERR*/
 #define I2C_ERR_LARGE_ADDRESS 	  0xE1UL	/*the address exceed the max addressing mode in i2c flash*/
@@ -137,16 +135,6 @@ Invalid argument
 #define BYTE_3(word)   					((uint8)(((word) >> 0 	) & 0x000000FFUL))
 #endif
 
-
-typedef enum{
-	M2M_REQ_GRP_MAIN = 0, M2M_REQ_GRP_WIFI, M2M_REQ_GRP_IP, M2M_REQ_GRP_HIF, M2M_REQ_GRP_OTA
-}tenuM2mReqGrp;
-
-
-typedef enum{
-	M2M_REQ_CONFIG_PKT,
-	M2M_REQ_DATA_PKT = NBIT7
-}tenuM2mReqPkt;
 /**@}*/
 #ifdef __cplusplus
      extern "C" {

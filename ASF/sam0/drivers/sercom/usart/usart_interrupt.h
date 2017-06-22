@@ -48,8 +48,6 @@
 
 #include "usart.h"
 
-#if USART_CALLBACK_MODE == true
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -174,8 +172,6 @@ enum status_code usart_get_job_status(
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* USART_CALLBACK_MODE == true */
 
 #endif /* USART_INTERRUPT_H_INCLUDED */
 
