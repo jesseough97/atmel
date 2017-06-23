@@ -196,7 +196,16 @@ POSTBUILD_CMD =
 ## ----------------------------------------------------------------------------- ##
 ## wolfSSL ##
 ## ----------------------------------------------------------------------------- ##
-#wolfSSL source files
+# wolfSSL source files
+CSRCS += ../wolfssl/src/crl.c
+CSRCS += ../wolfssl/src/internal.c
+CSRCS += ../wolfssl/src/io.c
+CSRCS += ../wolfssl/src/keys.c
+CSRCS += ../wolfssl/src/ocsp.c
+CSRCS += ../wolfssl/src/ssl.c
+CSRCS += ../wolfssl/src/tls.c
+CSRCS += ../wolfssl/src/tls13.c
+# wolfCrypt source files
 # core
 CSRCS += ../wolfssl/wolfcrypt/src/random.c
 CSRCS += ../wolfssl/wolfcrypt/src/logging.c
@@ -207,6 +216,7 @@ CSRCS += ../wolfssl/wolfcrypt/src/error.c
 CSRCS += ../wolfssl/wolfcrypt/src/signature.c
 CSRCS += ../wolfssl/wolfcrypt/src/hash.c
 CSRCS += ../wolfssl/wolfcrypt/src/asn.c
+CSRCS += ../wolfssl/wolfcrypt/src/wolfevent.c
 # crypto
 CSRCS += ../wolfssl/wolfcrypt/src/aes.c
 CSRCS += ../wolfssl/wolfcrypt/src/dh.c
@@ -219,11 +229,16 @@ CSRCS += ../wolfssl/wolfcrypt/src/sha512.c
 CSRCS += ../wolfssl/wolfcrypt/src/curve25519.c
 CSRCS += ../wolfssl/wolfcrypt/src/ed25519.c
 CSRCS += ../wolfssl/wolfcrypt/src/ecc.c
+CSRCS += ../wolfssl/wolfcrypt/src/chacha.c
+CSRCS += ../wolfssl/wolfcrypt/src/poly1305.c
+CSRCS += ../wolfssl/wolfcrypt/src/chacha20_poly1305.c
+CSRCS += ../wolfssl/wolfcrypt/src/sha3.c
 # math libraries
 CSRCS += ../wolfssl/wolfcrypt/src/tfm.c
 CSRCS += ../wolfssl/wolfcrypt/src/integer.c
 CSRCS += ../wolfssl/wolfcrypt/src/fe_low_mem.c
 CSRCS += ../wolfssl/wolfcrypt/src/ge_low_mem.c
+CSRCS += ../wolfssl/wolfcrypt/src/wolfmath.c
 # port
 CSRCS += ../wolfssl/wolfcrypt/src/port/atmel/atmel.c
 #wolfTest
