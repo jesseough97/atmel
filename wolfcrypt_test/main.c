@@ -24,6 +24,7 @@
 #endif
 
 #include <wolfssl/wolfcrypt/settings.h>
+#include <wolfssl/wolfcrypt/wc_port.h>
 #include <wolfcrypt/benchmark/benchmark.h>
 #include <wolfcrypt/test/test.h>
 #include <stdio.h>
@@ -35,7 +36,7 @@
 #include "conf_uart_serial.h"
 
 /* Configure clock debug output pins */
-#define DEBUG_CLOCKS
+//#define DEBUG_CLOCKS
 #define USE_RTC_COUNTER
 
 #ifdef USE_RTC_COUNTER
@@ -248,9 +249,9 @@ static void configure_rtc_count(void)
 
 	rtc_count_init(&rtc_instance, RTC, &config_rtc_count);
 	rtc_count_enable(&rtc_instance);
-    
+
     rtc_count_set_period(&rtc_instance, 1000);
-    
+
 	rtc_count_register_callback(&rtc_instance, rtc_overflow_callback, RTC_COUNT_CALLBACK_OVERFLOW);
 	rtc_count_enable_callback(&rtc_instance, RTC_COUNT_CALLBACK_OVERFLOW);
 }
@@ -340,6 +341,8 @@ int main(void)
     /* Send welcome message to UART */
 	usart_write_buffer_wait(&cdc_uart_module, welcomeStr, sizeof(welcomeStr));
 
+    wolfCrypt_Init();
+
     do
     {
 #ifndef NO_CRYPT_TEST
@@ -356,6 +359,8 @@ int main(void)
 
         test_num++;
     } while(args.return_code == 0);
+
+    wolfCrypt_Cleanup();
 
     return 0;
 }

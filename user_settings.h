@@ -75,10 +75,96 @@ extern "C" {
 /* RSA */
 #undef NO_RSA
 #if 0
-    #undef  FP_MAX_BITS
-    #define FP_MAX_BITS     4096
+    #ifdef USE_FAST_MATH
+        /* Maximum math bits (Max RSA key bits * 2) */
+        #undef  FP_MAX_BITS
+        #define FP_MAX_BITS     4096
+    #endif
+
+    /* half as much memory but twice as slow */
+    #undef  RSA_LOW_MEM
+    //#define RSA_LOW_MEM
 #else
     #define NO_RSA
+#endif
+
+/* AES */
+#undef NO_AES
+#if 1
+    #undef  HAVE_AESGCM
+    #define HAVE_AESGCM
+
+    /* GCM Method: GCM_SMALL, GCM_WORD32 or GCM_TABLE */
+    #undef  GCM_SMALL
+    #define GCM_SMALL
+#else
+    #define NO_AES
+#endif
+
+/* ChaCha20 / Poly1305 */
+#undef HAVE_CHACHA
+#undef HAVE_POLY1305
+#if 0
+    #define HAVE_CHACHA
+    #define HAVE_POLY1305
+
+    /* Needed for Poly1305 */
+    #undef  HAVE_ONE_TIME_AUTH
+    #define HAVE_ONE_TIME_AUTH
+#endif
+
+/* Ed25519 / Curve25519 */
+#undef HAVE_CURVE25519
+#undef HAVE_ED25519
+#if 0
+    #define HAVE_CURVE25519
+    #define HAVE_ED25519
+
+    /* Optionally use small math (less flash usage, but much slower) */
+    #if 0
+        #define CURVED25519_SMALL
+    #endif
+#endif
+
+
+/* ------------------------------------------------------------------------- */
+/* Hashing */
+/* ------------------------------------------------------------------------- */
+/* Sha */
+#undef NO_SHA
+#if 1
+    /* 1k smaller, but 25% slower */
+    //#define USE_SLOW_SHA
+#else
+    #define NO_SHA
+#endif
+
+/* Sha256 */
+#undef NO_SHA256
+#if 1
+#else
+    #define NO_SHA256
+#endif
+
+/* Sha512 */
+#undef WOLFSSL_SHA512
+#if 0
+    #define WOLFSSL_SHA512
+
+    /* Sha384 */
+    #undef  WOLFSSL_SHA384
+    #if 1
+        #define WOLFSSL_SHA384
+    #endif
+
+    /* over twice as small, but 50% slower */
+    //#define USE_SLOW_SHA2
+#endif
+
+/* MD5 */
+#undef  NO_MD5
+#if 1
+    #define NO_MD5
 #endif
 
 
@@ -91,6 +177,9 @@ extern "C" {
 
 #undef  USE_CERT_BUFFERS_2048
 #define USE_CERT_BUFFERS_2048
+
+#undef  USE_CERT_BUFFERS_256
+#define USE_CERT_BUFFERS_256
 
 #undef  NO_CRYPT_TEST
 //#define NO_CRYPT_TEST
@@ -107,7 +196,7 @@ extern "C" {
 //#define WOLFSSL_DEBUG
 
 #undef  NO_ERROR_STRINGS
-#define NO_ERROR_STRINGS
+//#define NO_ERROR_STRINGS
 
 /* Use this to measure / print heap usage (comment out NO_WOLFSSL_MEMORY) */
 #undef  USE_WOLFSSL_MEMORY

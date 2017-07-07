@@ -87,6 +87,7 @@ INC_PATH = \
        common/services/serial                             \
        common2/services/delay                             \
        common/utils                                       \
+       common/components/wifi/winc1500                    \
        ../wolfssl_client                                  \
        ../wolfssl_client/build                            \
        ../wolfssl_client/build/gcc                        \
@@ -185,7 +186,7 @@ ASFLAGS += $(CPPFLAGS)
 
 # Extra flags to use when linking
 LDFLAGS = \
-    -Xlinker --defsym=STACK_SIZE=0x4000 \
+    -Xlinker --defsym=STACK_SIZE=0x6000 \
     -u _printf_float
 
 # Pre- and post-build commands
@@ -278,9 +279,11 @@ CSRCS += ../cryptoauthlib/atcacert/atcacert_def.c
 CSRCS += ../cryptoauthlib/atcacert/atcacert_der.c
 CSRCS += ../cryptoauthlib/atcacert/atcacert_host_hw.c
 CSRCS += ../cryptoauthlib/atcacert/atcacert_host_sw.c
+CSRCS += ../tls_demo/tls_common.c
 
 #CryptoAuthLib includes
 INC_PATH += ../cryptoauthlib
+INC_PATH += ../tls_demo
 
 #CryptoAuthLib preprocessor
 CPPFLAGS += \

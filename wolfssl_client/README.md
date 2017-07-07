@@ -2,30 +2,12 @@
 
 This example demonstrates the wolfSSL TLS Client with the Atmel ATECC508 ECC 256-bit hardware accelerator. This uses IO callbacks and UART to perform TLS.
 
-## Benchmarks
-Software only implementation (SAMD21 48Mhz Cortex-M0, Fast Math TFM-ASM):
-`ECC  256 key generation  3123.000 milliseconds, avg over 5 iterations`
-`EC-DHE   key agreement   3117.000 milliseconds, avg over 5 iterations`
-`EC-DSA   sign   time     1997.000 milliseconds, avg over 5 iterations`
-`EC-DSA   verify time     5057.000 milliseconds, avg over 5 iterations`
-
-ATECC508A HW accelerated implementation:
-`ECC  256 key generation  144.400 milliseconds, avg over 5 iterations`
-`EC-DHE   key agreement   134.200 milliseconds, avg over 5 iterations`
-`EC-DSA   sign   time     293.400 milliseconds, avg over 5 iterations`
-`EC-DSA   verify time     208.400 milliseconds, avg over 5 iterations`
-
-For reference the benchmarks for RNG, AES, MD5, SHA and SHA256 are:
-`RNG      25 kB took 0.784 seconds,    0.031 MB/s (coming from the ATECC508A)`
-`AES      25 kB took 0.177 seconds,    0.138 MB/s`
-`MD5      25 kB took 0.050 seconds,    0.488 MB/s`
-`SHA      25 kB took 0.141 seconds,    0.173 MB/s`
-`SHA-256  25 kB took 0.352 seconds,    0.069 MB/s`
-
 ## Installation
 ### Setup
 
 The Atmel ATECC508A chips come from the factory un-programmed and need to be provisioned. Atmel provided us code as reference which exists in `cryptoauthlib/certs/provision.c`. The function is `atcatls_device_provision` and can be called more than once. If the device is not provisioned it will set it up with default slot settings. If its already provisioned it will skip.
+
+Install the ATECC508A to EXT2 or EXT3 and the WINC1500 to EXT1. ATECC508A is configured to use I2C bus 2 on PTA8/PTA9.
 
 The programming interface is SWD. The SAMD21 Xplained Pro board has a built in J-Link programmer.
 
@@ -74,10 +56,12 @@ Using edgb (see included `wolfssl_client/build/gcc/flash.sh` script):
 
 ### Debugging
 
-GDB with pipe (see included `wolfssl_client/build/gcc/debug.sh` script):
-`arm-none-eabi-gdb wolfssl_client_flash.elf -ex 'target remote | openocd -c "gdb_port pipe;" -f ../../../../utils/openocd/atmel_samd21_xplained_pro.cfg'
+GDB with pipe (see included `wolfcrypt_test/build/gcc/debug.sh` script):
+`arm-none-eabi-gdb wolfssl_client_flash.elf -ex 'target remote | openocd -c "gdb_port pipe;" -f ../../../ASF/sam0/utils/openocd/atmel_samd21_xplained_pro.cfg'
 load`
 
 GDB with remote port:
+`openocd -c "gdb_port 9993;" -f ../../../ASF/sam0/utils/openocd/atmel_samd21_xplained_pro.cfg`
 `arm-none-eabi-gdb wolfssl_client_flash.elf -ex 'target remote localhost:9993'`
-`openocd -c "gdb_port 9993;" -f ../../../../utils/openocd/atmel_samd21_xplained_pro.cfg`
+`load`
+`c`

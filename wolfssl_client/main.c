@@ -37,7 +37,7 @@
 #define MAXSZ              1024
 
 /* Configure clock debug output pins */
-#define DEBUG_CLOCKS
+//#define DEBUG_CLOCKS
 #define USE_RTC_COUNTER
 
 #ifdef USE_RTC_COUNTER
@@ -483,11 +483,7 @@ int main(void)
 	usart_write_buffer_wait(&cdc_uart_module, welcomeStr, sizeof(welcomeStr));
 
     /* start TLS client and use UART */
-
-
-
-
-    return 0;
+    return serial_client();
 }
 
 double current_time(int reset)

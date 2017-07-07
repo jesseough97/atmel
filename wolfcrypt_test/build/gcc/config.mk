@@ -185,7 +185,7 @@ ASFLAGS += $(CPPFLAGS)
 
 # Extra flags to use when linking
 LDFLAGS = \
-    -Xlinker --defsym=STACK_SIZE=0x4000 \
+    -Xlinker --defsym=STACK_SIZE=0x6000 \
     -u _printf_float
 
 # Pre- and post-build commands

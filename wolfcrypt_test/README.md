@@ -27,6 +27,8 @@ For reference the benchmarks for RNG, AES, MD5, SHA and SHA256 are:
 
 The Atmel ATECC508A chips come from the factory un-programmed and need to be provisioned. Atmel provided us code as reference which exists in `cryptoauthlib/certs/provision.c`. The function is `atcatls_device_provision` and can be called more than once. If the device is not provisioned it will set it up with default slot settings. If its already provisioned it will skip.
 
+Install the ATECC508A to EXT2 or EXT3 and the WINC1500 to EXT1. ATECC508A is configured to use I2C bus 2 on PTA8/PTA9.
+
 The programming interface is SWD. The SAMD21 Xplained Pro board has a built in J-Link programmer.
 
 You can configure your UART port in "config/conf_uart_serial.h" as either the UART at EXT2/EXT3 (PTB11 and PTB10 - default) or the EDBG CDC UART. The default baud rate is 115200. Use terminal software such as CoolTerm or Putty to interface to the console.
@@ -181,9 +183,11 @@ Using edgb (see included `wolfcrypt_test/build/gcc/flash.sh` script):
 ### Debugging
 
 GDB with pipe (see included `wolfcrypt_test/build/gcc/debug.sh` script):
-`arm-none-eabi-gdb wolfcrypt_flash.elf -ex 'target remote | openocd -c "gdb_port pipe;" -f ../../../../utils/openocd/atmel_samd21_xplained_pro.cfg'
+`arm-none-eabi-gdb wolfcrypt_flash.elf -ex 'target remote | openocd -c "gdb_port pipe;" -f ../../../ASF/sam0/utils/openocd/atmel_samd21_xplained_pro.cfg'
 load`
 
 GDB with remote port:
+`openocd -c "gdb_port 9993;" -f ../../../ASF/sam0/utils/openocd/atmel_samd21_xplained_pro.cfg`
 `arm-none-eabi-gdb wolfcrypt_flash.elf -ex 'target remote localhost:9993'`
-`openocd -c "gdb_port 9993;" -f ../../../../utils/openocd/atmel_samd21_xplained_pro.cfg`
+`load`
+`c`
