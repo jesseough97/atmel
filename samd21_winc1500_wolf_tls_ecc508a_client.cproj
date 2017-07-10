@@ -716,6 +716,8 @@
     <Folder Include="ASF\common\components\wifi\winc1500\socket\include\" />
     <Folder Include="ASF\common\components\wifi\winc1500\socket\source\" />
     <Folder Include="ASF\common\components\wifi\winc1500\spi_flash\" />
+    <Folder Include="ASF\common\components\wifi\winc1500\spi_flash\include\" />
+    <Folder Include="ASF\common\components\wifi\winc1500\spi_flash\source\" />
     <Folder Include="ASF\common\services\" />
     <Folder Include="ASF\common\services\serial\" />
     <Folder Include="ASF\common\services\serial\sam0_usart\" />
@@ -1849,6 +1851,15 @@
       <SubType>compile</SubType>
     </None>
     <Compile Include="ASF\common\components\wifi\winc1500\socket\source\socket.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="ASF\common\components\wifi\winc1500\spi_flash\include\spi_flash.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="ASF\common\components\wifi\winc1500\spi_flash\include\spi_flash_map.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="ASF\common\components\wifi\winc1500\spi_flash\source\spi_flash.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ASF\common\utils\interrupt\interrupt_sam_nvic.c">
