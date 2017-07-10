@@ -106,7 +106,7 @@
           <file path="ASF/sam0/drivers/extint/extint.h" framework="" version="" source="sam0/drivers/extint/extint.h" changed="False" content-id="Atmel.ASF" />
           <file path="ASF/sam0/drivers/extint/extint_callback.c" framework="" version="" source="sam0/drivers/extint/extint_callback.c" changed="False" content-id="Atmel.ASF" />
           <file path="ASF/sam0/drivers/extint/extint_callback.h" framework="" version="" source="sam0/drivers/extint/extint_callback.h" changed="False" content-id="Atmel.ASF" />
-          <file path="ASF/sam0/drivers/extint/extint_sam_d_r/extint.c" framework="" version="" source="sam0/drivers/extint/extint_sam_d_r/extint.c" changed="False" content-id="Atmel.ASF" />
+          <file path="ASF/sam0/drivers/extint/extint_sam_d_r_h/extint.c" framework="" version="" source="sam0/drivers/extint/extint_sam_d_r_h/extint.c" changed="False" content-id="Atmel.ASF" />
           <file path="ASF/sam0/drivers/port/port.c" framework="" version="" source="sam0/drivers/port/port.c" changed="False" content-id="Atmel.ASF" />
           <file path="ASF/sam0/drivers/port/port.h" framework="" version="" source="sam0/drivers/port/port.h" changed="False" content-id="Atmel.ASF" />
           <file path="ASF/sam0/drivers/port/quick_start/qs_port_basic.h" framework="" version="" source="sam0/drivers/port/quick_start/qs_port_basic.h" changed="False" content-id="Atmel.ASF" />
@@ -376,7 +376,7 @@
       <Value>../ASF/sam0/boards</Value>
       <Value>../ASF/sam0/boards/samd21_xplained_pro</Value>
       <Value>../ASF/sam0/drivers/extint</Value>
-      <Value>../ASF/sam0/drivers/extint/extint_sam_d_r</Value>
+      <Value>../ASF/sam0/drivers/extint/extint_sam_d_r_h</Value>
       <Value>../ASF/sam0/drivers/port</Value>
       <Value>../ASF/sam0/drivers/rtc</Value>
       <Value>../ASF/sam0/drivers/rtc/rtc_sam_d_r_h</Value>
@@ -465,7 +465,7 @@
       <Value>../ASF/sam0/boards</Value>
       <Value>../ASF/sam0/boards/samd21_xplained_pro</Value>
       <Value>../ASF/sam0/drivers/extint</Value>
-      <Value>../ASF/sam0/drivers/extint/extint_sam_d_r</Value>
+      <Value>../ASF/sam0/drivers/extint/extint_sam_d_r_h</Value>
       <Value>../ASF/sam0/drivers/port</Value>
       <Value>../ASF/sam0/drivers/rtc</Value>
       <Value>../ASF/sam0/drivers/rtc/rtc_sam_d_r_h</Value>
@@ -560,7 +560,7 @@
       <Value>../ASF/sam0/boards</Value>
       <Value>../ASF/sam0/boards/samd21_xplained_pro</Value>
       <Value>../ASF/sam0/drivers/extint</Value>
-      <Value>../ASF/sam0/drivers/extint/extint_sam_d_r</Value>
+      <Value>../ASF/sam0/drivers/extint/extint_sam_d_r_h</Value>
       <Value>../ASF/sam0/drivers/port</Value>
       <Value>../ASF/sam0/drivers/rtc</Value>
       <Value>../ASF/sam0/drivers/rtc/rtc_sam_d_r_h</Value>
@@ -650,7 +650,7 @@
       <Value>../ASF/sam0/boards</Value>
       <Value>../ASF/sam0/boards/samd21_xplained_pro</Value>
       <Value>../ASF/sam0/drivers/extint</Value>
-      <Value>../ASF/sam0/drivers/extint/extint_sam_d_r</Value>
+      <Value>../ASF/sam0/drivers/extint/extint_sam_d_r_h</Value>
       <Value>../ASF/sam0/drivers/port</Value>
       <Value>../ASF/sam0/drivers/rtc</Value>
       <Value>../ASF/sam0/drivers/rtc/rtc_sam_d_r_h</Value>
@@ -726,7 +726,7 @@
     <Folder Include="ASF\sam0\boards\samd21_xplained_pro\" />
     <Folder Include="ASF\sam0\drivers\" />
     <Folder Include="ASF\sam0\drivers\extint\" />
-    <Folder Include="ASF\sam0\drivers\extint\extint_sam_d_r\" />
+    <Folder Include="ASF\sam0\drivers\extint\extint_sam_d_r_h\" />
     <Folder Include="ASF\sam0\drivers\port\" />
     <Folder Include="ASF\sam0\drivers\port\quick_start\" />
     <Folder Include="ASF\sam0\drivers\sercom\" />
@@ -1860,7 +1860,7 @@
     <Compile Include="ASF\sam0\drivers\extint\extint_callback.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="ASF\sam0\drivers\extint\extint_sam_d_r\extint.c">
+    <Compile Include="ASF\sam0\drivers\extint\extint_sam_d_r_h\extint.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ASF\sam0\drivers\port\port.c">
