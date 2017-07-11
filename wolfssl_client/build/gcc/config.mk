@@ -126,7 +126,7 @@ INC_PATH = \
 
 # Additional search paths for libraries.
 LIB_PATH =  \
-       ../CMSIS/Lib/GCC
+       thirdparty/CMSIS/Lib/GCC
 
 # List of libraries to use during linking.
 LIBS =  \

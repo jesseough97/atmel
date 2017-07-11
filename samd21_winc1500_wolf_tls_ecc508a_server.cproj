@@ -271,16 +271,16 @@
           <file path="ASF/sam0/utils/stdio/stdio_serial/stdio_serial.h" framework="" version="" source="sam0/utils/stdio/stdio_serial/stdio_serial.h" changed="False" content-id="Atmel.ASF" />
           <file path="ASF/sam0/utils/stdio/write.c" framework="" version="" source="sam0/utils/stdio/write.c" changed="False" content-id="Atmel.ASF" />
           <file path="ASF/sam0/utils/syscalls/gcc/syscalls.c" framework="" version="" source="sam0/utils/syscalls/gcc/syscalls.c" changed="False" content-id="Atmel.ASF" />
-          <file path="CMSIS/ATMEL-disclaimer.txt" framework="" version="" source="thirdparty/CMSIS/ATMEL-disclaimer.txt" changed="False" content-id="Atmel.ASF" />
-          <file path="CMSIS/CMSIS_END_USER_LICENCE_AGREEMENT.pdf" framework="" version="" source="thirdparty/CMSIS/CMSIS_END_USER_LICENCE_AGREEMENT.pdf" changed="False" content-id="Atmel.ASF" />
-          <file path="CMSIS/Include/arm_math.h" framework="" version="" source="thirdparty/CMSIS/Include/arm_math.h" changed="False" content-id="Atmel.ASF" />
-          <file path="CMSIS/Include/core_cm0plus.h" framework="" version="" source="thirdparty/CMSIS/Include/core_cm0plus.h" changed="False" content-id="Atmel.ASF" />
-          <file path="CMSIS/Include/core_cmFunc.h" framework="" version="" source="thirdparty/CMSIS/Include/core_cmFunc.h" changed="False" content-id="Atmel.ASF" />
-          <file path="CMSIS/Include/core_cmInstr.h" framework="" version="" source="thirdparty/CMSIS/Include/core_cmInstr.h" changed="False" content-id="Atmel.ASF" />
-          <file path="CMSIS/Lib/GCC/libarm_cortexM0l_math.a" framework="" version="" source="thirdparty/CMSIS/Lib/GCC/libarm_cortexM0l_math.a" changed="False" content-id="Atmel.ASF" />
-          <file path="CMSIS/Lib/license.txt" framework="" version="" source="thirdparty/CMSIS/Lib/license.txt" changed="False" content-id="Atmel.ASF" />
-          <file path="CMSIS/README.txt" framework="" version="" source="thirdparty/CMSIS/README.txt" changed="False" content-id="Atmel.ASF" />
-          <file path="CMSIS/license.txt" framework="" version="" source="thirdparty/CMSIS/license.txt" changed="False" content-id="Atmel.ASF" />
+          <file path="ASF/thirdparty/CMSIS/ATMEL-disclaimer.txt" framework="" version="" source="thirdparty/ASF/thirdparty/CMSIS/ATMEL-disclaimer.txt" changed="False" content-id="Atmel.ASF" />
+          <file path="ASF/thirdparty/CMSIS/CMSIS_END_USER_LICENCE_AGREEMENT.pdf" framework="" version="" source="thirdparty/ASF/thirdparty/CMSIS/CMSIS_END_USER_LICENCE_AGREEMENT.pdf" changed="False" content-id="Atmel.ASF" />
+          <file path="ASF/thirdparty/CMSIS/Include/arm_math.h" framework="" version="" source="thirdparty/ASF/thirdparty/CMSIS/Include/arm_math.h" changed="False" content-id="Atmel.ASF" />
+          <file path="ASF/thirdparty/CMSIS/Include/core_cm0plus.h" framework="" version="" source="thirdparty/ASF/thirdparty/CMSIS/Include/core_cm0plus.h" changed="False" content-id="Atmel.ASF" />
+          <file path="ASF/thirdparty/CMSIS/Include/core_cmFunc.h" framework="" version="" source="thirdparty/ASF/thirdparty/CMSIS/Include/core_cmFunc.h" changed="False" content-id="Atmel.ASF" />
+          <file path="ASF/thirdparty/CMSIS/Include/core_cmInstr.h" framework="" version="" source="thirdparty/ASF/thirdparty/CMSIS/Include/core_cmInstr.h" changed="False" content-id="Atmel.ASF" />
+          <file path="ASF/thirdparty/CMSIS/Lib/GCC/libarm_cortexM0l_math.a" framework="" version="" source="thirdparty/ASF/thirdparty/CMSIS/Lib/GCC/libarm_cortexM0l_math.a" changed="False" content-id="Atmel.ASF" />
+          <file path="ASF/thirdparty/CMSIS/Lib/license.txt" framework="" version="" source="thirdparty/ASF/thirdparty/CMSIS/Lib/license.txt" changed="False" content-id="Atmel.ASF" />
+          <file path="ASF/thirdparty/CMSIS/README.txt" framework="" version="" source="thirdparty/ASF/thirdparty/CMSIS/README.txt" changed="False" content-id="Atmel.ASF" />
+          <file path="ASF/thirdparty/CMSIS/license.txt" framework="" version="" source="thirdparty/ASF/thirdparty/CMSIS/license.txt" changed="False" content-id="Atmel.ASF" />
           <file path="ASF/sam0/drivers/sercom/i2c/i2c_master_interrupt.h" framework="" version="3.23.1" source="sam0\drivers\sercom\i2c\i2c_master_interrupt.h" changed="False" content-id="Atmel.ASF" />
           <file path="ASF/sam0/drivers/sercom/i2c/i2c_common.h" framework="" version="3.23.1" source="sam0\drivers\sercom\i2c\i2c_common.h" changed="False" content-id="Atmel.ASF" />
           <file path="ASF/sam0/drivers/sercom/i2c/quick_start_master_callback/qs_i2c_master_callback.h" framework="" version="3.23.1" source="sam0\drivers\sercom\i2c\quick_start_master_callback\qs_i2c_master_callback.h" changed="False" content-id="Atmel.ASF" />
@@ -401,8 +401,8 @@
       <Value>../ASF/sam0/utils/cmsis/samd21/source</Value>
       <Value>../ASF/sam0/utils/header_files</Value>
       <Value>../ASF/sam0/utils/stdio/stdio_serial</Value>
-      <Value>../CMSIS/Include</Value>
-      <Value>../CMSIS/Lib/GCC</Value>
+      <Value>../ASF/thirdparty/CMSIS/Include</Value>
+      <Value>../ASF/thirdparty/CMSIS/Lib/GCC</Value>
       <Value>../wolfssl</Value>
       <Value>../cryptoauthlib</Value>
     </ListValues>
@@ -421,7 +421,7 @@
   </armgcc.linker.libraries.Libraries>
   <armgcc.linker.libraries.LibrarySearchPaths>
     <ListValues>
-      <Value>../CMSIS/Lib/GCC</Value>
+      <Value>../ASF/thirdparty/CMSIS/Lib/GCC</Value>
     </ListValues>
   </armgcc.linker.libraries.LibrarySearchPaths>
   <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
@@ -489,8 +489,8 @@
       <Value>../ASF/sam0/utils/cmsis/samd21/source</Value>
       <Value>../ASF/sam0/utils/header_files</Value>
       <Value>../ASF/sam0/utils/stdio/stdio_serial</Value>
-      <Value>../CMSIS/Include</Value>
-      <Value>../CMSIS/Lib/GCC</Value>
+      <Value>../ASF/thirdparty/CMSIS/Include</Value>
+      <Value>../ASF/thirdparty/CMSIS/Lib/GCC</Value>
       <Value>../wolfssl</Value>
       <Value>../cryptoauthlib</Value>
     </ListValues>
@@ -585,8 +585,8 @@
       <Value>../ASF/sam0/utils/cmsis/samd21/source</Value>
       <Value>../ASF/sam0/utils/header_files</Value>
       <Value>../ASF/sam0/utils/stdio/stdio_serial</Value>
-      <Value>../CMSIS/Include</Value>
-      <Value>../CMSIS/Lib/GCC</Value>
+      <Value>../ASF/thirdparty/CMSIS/Include</Value>
+      <Value>../ASF/thirdparty/CMSIS/Lib/GCC</Value>
       <Value>../wolfssl</Value>
       <Value>../cryptoauthlib</Value>
     </ListValues>
@@ -605,7 +605,7 @@
   </armgcc.linker.libraries.Libraries>
   <armgcc.linker.libraries.LibrarySearchPaths>
     <ListValues>
-      <Value>../CMSIS/Lib/GCC</Value>
+      <Value>../ASF/thirdparty/CMSIS/Lib/GCC</Value>
     </ListValues>
   </armgcc.linker.libraries.LibrarySearchPaths>
   <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
@@ -675,8 +675,8 @@
       <Value>../ASF/sam0/utils/cmsis/samd21/source</Value>
       <Value>../ASF/sam0/utils/header_files</Value>
       <Value>../ASF/sam0/utils/stdio/stdio_serial</Value>
-      <Value>../CMSIS/Include</Value>
-      <Value>../CMSIS/Lib/GCC</Value>
+      <Value>../ASF/thirdparty/CMSIS/Include</Value>
+      <Value>../ASF/thirdparty/CMSIS/Lib/GCC</Value>
       <Value>../wolfssl</Value>
       <Value>../cryptoauthlib</Value>
     </ListValues>
@@ -776,10 +776,10 @@
     <Folder Include="ASF\sam0\utils\syscalls\" />
     <Folder Include="ASF\sam0\utils\syscalls\gcc\" />
     <Folder Include="ASF\thirdparty\" />
-    <Folder Include="CMSIS\" />
-    <Folder Include="CMSIS\Include\" />
-    <Folder Include="CMSIS\Lib\" />
-    <Folder Include="CMSIS\Lib\GCC\" />
+    <Folder Include="ASF\thirdparty\CMSIS\" />
+    <Folder Include="ASF\thirdparty\CMSIS\Include\" />
+    <Folder Include="ASF\thirdparty\CMSIS\Lib\" />
+    <Folder Include="ASF\thirdparty\CMSIS\Lib\GCC\" />
     <Folder Include="wolfssl\" />
     <Folder Include="wolfssl\src\" />
     <Folder Include="wolfssl\wolfcrypt\" />
@@ -1459,13 +1459,13 @@
     <None Include="ASF\sam0\utils\cmsis\samd21\include\component\hmatrixb.h">
       <SubType>compile</SubType>
     </None>
-    <None Include="CMSIS\ATMEL-disclaimer.txt">
+    <None Include="ASF\thirdparty\CMSIS\ATMEL-disclaimer.txt">
       <SubType>compile</SubType>
     </None>
-    <None Include="CMSIS\CMSIS_END_USER_LICENCE_AGREEMENT.pdf">
+    <None Include="ASF\thirdparty\CMSIS\CMSIS_END_USER_LICENCE_AGREEMENT.pdf">
       <SubType>compile</SubType>
     </None>
-    <None Include="CMSIS\Include\core_cm0plus.h">
+    <None Include="ASF\thirdparty\CMSIS\Include\core_cm0plus.h">
       <SubType>compile</SubType>
     </None>
     <None Include="ASF\common\utils\interrupt.h">
@@ -1477,13 +1477,13 @@
     <None Include="ASF\sam0\utils\cmsis\samd21\include\instance\tc4.h">
       <SubType>compile</SubType>
     </None>
-    <None Include="CMSIS\Lib\GCC\libarm_cortexM0l_math.a">
+    <None Include="ASF\thirdparty\CMSIS\Lib\GCC\libarm_cortexM0l_math.a">
       <SubType>compile</SubType>
     </None>
-    <None Include="CMSIS\Lib\license.txt">
+    <None Include="ASF\thirdparty\CMSIS\Lib\license.txt">
       <SubType>compile</SubType>
     </None>
-    <None Include="CMSIS\README.txt">
+    <None Include="ASF\thirdparty\CMSIS\README.txt">
       <SubType>compile</SubType>
     </None>
     <None Include="tls_demo\main.h">
@@ -1507,7 +1507,7 @@
     <None Include="ASF\sam0\utils\cmsis\samd21\include\instance\port.h">
       <SubType>compile</SubType>
     </None>
-    <None Include="CMSIS\Include\arm_math.h">
+    <None Include="ASF\thirdparty\CMSIS\Include\arm_math.h">
       <SubType>compile</SubType>
     </None>
     <None Include="ASF\sam0\utils\cmsis\samd21\include\instance\gclk.h">
@@ -1714,7 +1714,7 @@
     <None Include="ASF\sam0\utils\cmsis\samd21\include\samd21j16b.h">
       <SubType>compile</SubType>
     </None>
-    <None Include="CMSIS\Include\core_cmFunc.h">
+    <None Include="ASF\thirdparty\CMSIS\Include\core_cmFunc.h">
       <SubType>compile</SubType>
     </None>
     <None Include="ASF\sam0\utils\cmsis\samd21\include\samd21j15b.h">
@@ -1756,7 +1756,7 @@
     <None Include="ASF\sam0\utils\cmsis\samd21\include\samd21e16b.h">
       <SubType>compile</SubType>
     </None>
-    <None Include="CMSIS\Include\core_cmInstr.h">
+    <None Include="ASF\thirdparty\CMSIS\Include\core_cmInstr.h">
       <SubType>compile</SubType>
     </None>
     <None Include="ASF\sam0\utils\cmsis\samd21\include\samd21e15b.h">
