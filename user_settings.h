@@ -68,6 +68,9 @@ extern "C" {
     #undef  ECC_USER_CURVES
     #define ECC_USER_CURVES
 
+    #undef  ECC_TIMING_RESISTANT
+    #define ECC_TIMING_RESISTANT
+
     #undef  ALT_ECC_SIZE
     #define ALT_ECC_SIZE
 #endif
