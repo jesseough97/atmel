@@ -199,7 +199,7 @@ POSTBUILD_CMD =
 # wolfSSL source files
 CSRCS += ../wolfssl/src/crl.c
 CSRCS += ../wolfssl/src/internal.c
-CSRCS += ../wolfssl/src/io.c
+CSRCS += ../wolfssl/src/wolfio.c
 CSRCS += ../wolfssl/src/keys.c
 CSRCS += ../wolfssl/src/ocsp.c
 CSRCS += ../wolfssl/src/ssl.c
