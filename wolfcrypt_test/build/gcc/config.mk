@@ -125,7 +125,7 @@ INC_PATH = \
 
 # Additional search paths for libraries.
 LIB_PATH =  \
-        thirdparty/CMSIS/Lib/GCC
+       thirdparty/CMSIS/Lib/GCC
 
 # List of libraries to use during linking.
 LIBS =  \
@@ -207,6 +207,7 @@ CSRCS += ../wolfssl/src/tls.c
 CSRCS += ../wolfssl/src/tls13.c
 # wolfCrypt source files
 # core
+CSRCS += ../wolfssl/wolfcrypt/src/coding.c
 CSRCS += ../wolfssl/wolfcrypt/src/random.c
 CSRCS += ../wolfssl/wolfcrypt/src/logging.c
 CSRCS += ../wolfssl/wolfcrypt/src/memory.c

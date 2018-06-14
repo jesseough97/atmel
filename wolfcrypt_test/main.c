@@ -376,3 +376,9 @@ double current_time(int reset)
     //printf("seconds=%u, timer=%u\n", secondCount, timer);
     return (double)secondCount + (((double)timer) / 1000);
 }
+
+int _gettimeofday(struct timeval *tv, void *tzvp);
+int _gettimeofday(struct timeval *tv, void *tzvp)
+{
+    return 0;
+}
