@@ -506,64 +506,70 @@ static int tls_set_enc_key(uint8_t* enckey, int16_t keysize)
         int side, void* ctx)
 {
 	int ret = 0;
-	uint8_t key_buffer[64];
+    ecc_key tmpKey;
+	uint8_t key_buffer[ATECC_KEY_SIZE*2];
+    uint8_t* qx = &key_buffer[0];
+    uint8_t* qy = &key_buffer[ATECC_KEY_SIZE];
+    word32 qxLen = ATECC_KEY_SIZE, qyLen = ATECC_KEY_SIZE;
 
-	if (pubKeyDer == NULL || pubKeySz == NULL ||
-		out == NULL || outlen == NULL) {
-		return -1;
+	if (pubKeyDer == NULL || pubKeySz == NULL || out == NULL || outlen == NULL) {
+		return BAD_FUNC_ARG;
 	}
 
 	(void)ctx;
-    (void)otherKey;
+
+    XMEMSET(key_buffer, 0, sizeof(key_buffer));
+
+    ret = atcatlsfn_set_get_enckey(tls_set_enc_key);
+    if (ret != ATCA_SUCCESS) {
+        return -1;
+    }
+
+    ret = wc_ecc_init(&tmpKey);
+    if (ret != 0) {
+        return ret;
+    }
 
 	if (side == WOLFSSL_CLIENT_END) {
-	    ret = atcacert_get_subj_public_key(&g_cert_def_end_user,
-	    	ssl->peerCert.derCert->buffer,
-	    	ssl->peerCert.derCert->length,
-	    	key_buffer);
-		if (ret != ATCACERT_E_SUCCESS) {
-			printf("Failed to get singer's public key!\r\n");
-			return ret;
-		}
-		atcab_printbin_label((const uint8_t*)"\r\nPeer's Public Key", key_buffer, sizeof(key_buffer));
-
-		ret = atcatlsfn_set_get_enckey(tls_set_enc_key);
-		if (ret != ATCA_SUCCESS) {
-			printf("Failed to set enckey\r\n");
-			return -1;
-		}
-
-		ret = atcatls_ecdh(TLS_SLOT_AUTH_PRIV, key_buffer, out);
-		if (ret != 0) {
-			printf("Failed to create PMS\r\n");
-			return ret;
-		}
-		*outlen = ATECC_KEY_SIZE;
-
-		atcab_printbin_label((const uint8_t*)"\r\nPre Master Secret", out, *outlen);
-
-		XMEMCPY(pubKeyDer, atcert.end_user_pubkey, sizeof(atcert.end_user_pubkey));
-		*pubKeySz = sizeof(atcert.end_user_pubkey);
-		atcab_printbin_label((const uint8_t*)"\r\nClient public key to be sent", pubKeyDer, *pubKeySz);
+        /* generate new ephemeral key on device */
+        ret = atcatls_create_key(TLS_SLOT_ECDHE_PRIV, key_buffer);
+        if (ret == ATCA_SUCCESS) {
+            /* convert raw unsigned public key to X.963 format for TLS */
+            ret = wc_ecc_import_unsigned(&tmpKey, qx, qy, NULL, ECC_SECP256R1);
+            if (ret == 0) {
+                ret = wc_ecc_export_x963(&tmpKey, pubKeyDer, pubKeySz);
+            }
+        }
+        (void)qxLen;
+        (void)qyLen;
 	}
-	else {
-		atcab_printbin_label((const uint8_t*)"\r\nPeer's Public Key", pubKeyDer, *pubKeySz);
+	else if (side == WOLFSSL_SERVER_END) {
+        /* import peer's key and export as raw unsigned for hardware */
+        ret = wc_ecc_import_x963_ex(pubKeyDer, *pubKeySz, &tmpKey, ECC_SECP256R1);
+        if (ret == 0) {
+            ret = wc_ecc_export_public_raw(&tmpKey, qx, &qxLen, qy, &qyLen);
+        }
+    }
+    else {
+        ret = BAD_FUNC_ARG;
+    }
 
-		ret = atcatlsfn_set_get_enckey(tls_set_enc_key);
-		if (ret != ATCA_SUCCESS) {
-			printf("Failed to set enckey\r\n");
-			return -1;
-		}
+    wc_ecc_free(&tmpKey);
 
-		ret = atcatls_ecdh(TLS_SLOT_AUTH_PRIV, pubKeyDer, out);
-		if (ret != 0) {
-			printf("Failed to creat PMS\r\n");
-			return ret;
-		}
+    if (ret != 0) {
+        return ret;
+    }
 
-		*outlen = ATECC_KEY_SIZE;
-		atcab_printbin_label((const uint8_t*)"\r\nPre Master Secret", out, *outlen);
-	}
+    atcab_printbin_label((const uint8_t*)"\r\nPeer's Public Key",
+        pubKeyDer, *pubKeySz);
+
+    ret = atcatls_ecdh(TLS_SLOT_ECDHE_PRIV, key_buffer, out);
+    if (ret != 0) {
+        return ret;
+    }
+    *outlen = ATECC_KEY_SIZE;
+
+    atcab_printbin_label((const uint8_t*)"\r\nPre Master Secret", out, *outlen);
 
 	return ret;
 }
@@ -576,19 +582,23 @@ int tls_build_signer_ca_cert(void)
 {
 	int ret = 0;
 
-	ret = atcacert_read_cert(&g_cert_def_signer_ca, g_signer_root_ca_public_key, atcert.signer_ca, &atcert.signer_ca_size);
+	ret = atcacert_read_cert(&g_cert_def_signer_ca, g_signer_root_ca_public_key,
+        atcert.signer_ca, &atcert.signer_ca_size);
 	if (ret != ATCACERT_E_SUCCESS) {
 		printf("Failed to read signer cert!\r\n");
 		return ret;
 	}
-	atcab_printbin_label((const uint8_t*)"\r\nSigner Certficate", atcert.signer_ca, atcert.signer_ca_size);
+	atcab_printbin_label((const uint8_t*)"\r\nSigner Certficate",
+        atcert.signer_ca, atcert.signer_ca_size);
 
-	ret = atcacert_get_subj_public_key(&g_cert_def_signer_ca, atcert.signer_ca, atcert.signer_ca_size, atcert.signer_ca_pubkey);
+	ret = atcacert_get_subj_public_key(&g_cert_def_signer_ca, atcert.signer_ca,
+        atcert.signer_ca_size, atcert.signer_ca_pubkey);
 	if (ret != ATCACERT_E_SUCCESS) {
 		printf("Failed to read signer public key!\r\n");
 		return ret;
 	}
-	atcab_printbin_label((const uint8_t*)"\r\nSigner Public Key", atcert.signer_ca_pubkey, sizeof(atcert.signer_ca_pubkey));
+	atcab_printbin_label((const uint8_t*)"\r\nSigner Public Key",
+        atcert.signer_ca_pubkey, sizeof(atcert.signer_ca_pubkey));
 
 	return ret;
 }
@@ -601,26 +611,32 @@ int tls_build_end_user_cert(void)
 	int ret = 0;
 	uint8_t device_signature[64];
 
-	ret = atcacert_read_cert(&g_cert_def_end_user, atcert.signer_ca_pubkey, atcert.end_user, &atcert.end_user_size);
+	ret = atcacert_read_cert(&g_cert_def_end_user, atcert.signer_ca_pubkey,
+        atcert.end_user, &atcert.end_user_size);
 	if (ret != ATCACERT_E_SUCCESS) {
 		printf("Failed to read device cert!\r\n");
 		return ret;
 	}
-	atcab_printbin_label((const uint8_t*)"\r\nEnd User Certificate", atcert.end_user, atcert.end_user_size);
+	atcab_printbin_label((const uint8_t*)"\r\nEnd User Certificate",
+        atcert.end_user, atcert.end_user_size);
 
-	ret = atcacert_get_subj_public_key(&g_cert_def_end_user, atcert.end_user, atcert.end_user_size, atcert.end_user_pubkey);
+	ret = atcacert_get_subj_public_key(&g_cert_def_end_user, atcert.end_user,
+        atcert.end_user_size, atcert.end_user_pubkey);
 	if (ret != ATCACERT_E_SUCCESS) {
 		printf("Failed to read signer public key!\r\n");
 		return ret;
 	}
-	atcab_printbin_label((const uint8_t*)"\r\nEnd User Public Key", atcert.end_user_pubkey, sizeof(atcert.end_user_pubkey));
+	atcab_printbin_label((const uint8_t*)"\r\nEnd User Public Key",
+        atcert.end_user_pubkey, sizeof(atcert.end_user_pubkey));
 
-	ret = atcacert_get_signature(&g_cert_def_end_user, atcert.end_user, atcert.end_user_size, device_signature);
+	ret = atcacert_get_signature(&g_cert_def_end_user, atcert.end_user,
+        atcert.end_user_size, device_signature);
 	if (ret != ATCACERT_E_SUCCESS) {
 		printf("Failed to read device cert!\r\n");
 		return ret;
 	}
-	atcab_printbin_label((const uint8_t*)"\r\nEnd User Signature", device_signature, sizeof(device_signature));
+	atcab_printbin_label((const uint8_t*)"\r\nEnd User Signature",
+        device_signature, sizeof(device_signature));
 
 	return ret;
 }
@@ -645,23 +661,22 @@ int tls_verify_peer_cert_cb(int preverify, WOLFSSL_X509_STORE_CTX *peer_cert)
 /**
  * \brief Sign received digest so far for private key to be proved.
  */
-int tls_sign_certificate_cb(WOLFSSL* ssl, const byte* in, word32 inSz, byte* out, word32* outSz,
-							const byte* key, word32 keySz, void* ctx)
+int tls_sign_certificate_cb(WOLFSSL* ssl, const byte* in, word32 inSz,
+    byte* out, word32* outSz, const byte* key, word32 keySz, void* ctx)
 {
 	int ret = 0;
 
 	if (in == NULL || out == NULL || outSz == NULL) {
-		printf("Bad Param\r\n");
-		return -1;
+		return BAD_FUNC_ARG;
 	}
 
-	ret = atcatls_sign(0x00, in, out);
+	ret = atcatls_sign(TLS_SLOT_AUTH_PRIV, in, out);
 	if (ret != ATCA_SUCCESS) {
 		printf("Failed to sign digest\r\n");
 		return -1;
 	}
 
-	*outSz = 64;
+	*outSz = ATECC_KEY_SIZE * 2;
     atcab_printbin_label((const uint8_t*)"\r\nSigned Signature", out, *outSz);
 
 	return ret;
@@ -670,31 +685,45 @@ int tls_sign_certificate_cb(WOLFSSL* ssl, const byte* in, word32 inSz, byte* out
 /**
  * \brief Verify signature received from peers to prove peer's private key.
  */
-int tls_verify_signature_cb(WOLFSSL* ssl, const byte* sig, word32 sigSz, const byte* hash,
-                 			word32 hashSz, const byte* key, word32 keySz, int* result, void* ctx)
+int tls_verify_signature_cb(WOLFSSL* ssl, const byte* sig, word32 sigSz,
+    const byte* hash, word32 hashSz, const byte* key, word32 keySz,
+    int* result, void* ctx)
 {
 	int ret = 0;
-	uint8_t key_buffer[64];
+    ecc_key tmpKey;
+    uint8_t key_buffer[ATECC_KEY_SIZE*2];
+    uint8_t* qx = &key_buffer[0];
+    uint8_t* qy = &key_buffer[ATECC_KEY_SIZE];
+    word32 qxLen = ATECC_KEY_SIZE, qyLen = ATECC_KEY_SIZE;
+    word32 idx = 0;
 
-	if (ssl->peerCert.derCert->buffer == NULL || key == NULL || sig == NULL || hash == NULL || result == NULL) {
-		printf("Bad Param\r\n");
-		return -1;
+	if (ssl == NULL || key == NULL || sig == NULL || hash == NULL || result == NULL) {
+		return BAD_FUNC_ARG;
 	}
 
-    ret = atcacert_get_subj_public_key(&g_cert_def_end_user, ssl->peerCert.derCert->buffer,
-    										ssl->peerCert.derCert->length, key_buffer);
-	if (ret != ATCACERT_E_SUCCESS) {
-		printf("Failed to get singer's public key!\r\n");
-		return ret;
-	}
+    /* import public key and export public as unsigned bin for hardware */
+    ret = wc_ecc_init(&tmpKey);
+    if (ret == 0) {
+        ret = wc_EccPublicKeyDecode(key, &idx, &tmpKey, keySz);
+        if (ret == 0) {
+            ret = wc_ecc_export_public_raw(&tmpKey, qx, &qxLen, qy, &qyLen);
+        }
+        wc_ecc_free(&tmpKey);
+        (void)qxLen;
+        (void)qyLen;
+    }
 
-	ret = atcatls_verify(hash, sig, key_buffer, (bool*)result);
+    if (ret != 0) {
+        return ret;
+    }
+
+    ret = atcatls_verify(hash, sig, key_buffer, (bool*)result);
 	if (ret != 0 || (*result != TRUE)) {
 		printf("Failed to verify signature!\r\n");
-		return -1;
+		return VERIFY_SIGN_ERROR;
 	}
 
-	if(*result == TRUE)
+	if (*result == TRUE)
 		printf("Verified : Client's signed certificate!\r\n");
 
 	return ret;

@@ -11,7 +11,9 @@ extern "C" {
 /* Platform */
 /* ------------------------------------------------------------------------- */
 #undef  WOLFSSL_ATMEL
-#define WOLFSSL_ATMEL
+#ifdef __ATMELSTUDIO__
+    #define WOLFSSL_ATMEL
+#endif
 
 #undef  WOLFSSL_ATECC508A
 #define WOLFSSL_ATECC508A

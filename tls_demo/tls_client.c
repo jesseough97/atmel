@@ -72,17 +72,17 @@ SOCKET tls_access_server(const char* ip, uint16 port)
 	socklen_t len = sizeof(val);
 
 	tls_client_socket = socket(AF_INET, SOCK_STREAM, 0);
-	
+
 	if (tls_client_socket < 0) {
 		printf("Failed to assign socket!\r\n");
 		return -1;
 	}
-	
+
 	/* Initialize socket address structure. */
 	addr.sin_family = AF_INET;
 	addr.sin_addr.s_addr = nmi_inet_addr(TLS_SERVER_IP);
 	addr.sin_port = _htons(TLS_SERVER_PORT);
-	
+
 	if (connect(tls_client_socket, (const struct sockaddr*)&addr, sizeof(addr)) != 0) {
 		printf("Failed to connect to server\r\n");
 		close(tls_client_socket);
@@ -116,7 +116,7 @@ void tls_client_socket_cb(SOCKET sock, uint8_t u8Msg, void *pvMsg)
 				close(tls_client_socket);
 			}
 		}
-		break;		
+		break;
 
 		case SOCKET_MSG_LISTEN:
 		{
@@ -175,7 +175,7 @@ void tls_client_socket_cb(SOCKET sock, uint8_t u8Msg, void *pvMsg)
 		}
 		break;
 
-		
+
 		case SOCKET_MSG_SEND:
 		{
 			tstrSocketConnectMsg *pstrConnect = (tstrSocketConnectMsg *)pvMsg;
@@ -186,7 +186,7 @@ void tls_client_socket_cb(SOCKET sock, uint8_t u8Msg, void *pvMsg)
 				printf("socket callback : send error!\r\n");
 				DISABLE_SOCKET_STATUS(SOCKET_STATUS_SEND);
 				close(tls_client_socket);
-			}		
+			}
 		}
 		break;
 
@@ -202,7 +202,7 @@ int tls_send_message(void)
 {
     char msg[32] = "Hello Bob!";   /* GET may make bigger */
     int  msg_len = (int)strlen(msg);
-	
+
     if (wolfSSL_write(ssl_client, msg, msg_len) != msg_len) {
         printf("Failed to send client message!\r\n");
 		return SSL_ERROR_SSL;
@@ -210,7 +210,7 @@ int tls_send_message(void)
 
 	printf("\r\n============================================\r\n");
 	printf("Sent a encrypted cipher text : %s\r\n", msg);
-	printf("============================================\r\n");	
+	printf("============================================\r\n");
 	return SSL_SUCCESS;
 }
 
@@ -223,12 +223,12 @@ int tls_receive_message(void)
 	uint8_t msg[80];
 
     msg_len = wolfSSL_read(ssl_client, msg, sizeof(msg)-1);
-	
+
 	if (msg_len > 0) {
 		msg[msg_len] = 0;
 		printf("\r\n===================================\r\n");
 		printf("Received a plain text : %s\r\n", msg);
-		printf("===================================\r\n");		
+		printf("===================================\r\n");
 		return SSL_SUCCESS;
 	} else {
 		printf("Failed to receive msessage\r\n");
@@ -242,7 +242,7 @@ int tls_receive_message(void)
 int tls_start_handshake(void)
 {
 
-	if (wolfSSL_connect(ssl_client) != SSL_SUCCESS) {        
+	if (wolfSSL_connect(ssl_client) != SSL_SUCCESS) {
         int  err = wolfSSL_get_error(ssl_client, 0);
         char buffer[80];
         printf("Failed to handshake, Error num = %d, %s\r\n", err, wolfSSL_ERR_error_string(err, buffer));
@@ -260,9 +260,9 @@ int tls_load_wolfssl_objects(void)
 
 	if (wolfSSL_Init() != SSL_SUCCESS) {
     	printf("Failed to initialze wolfSSL!\r\n");
-		return SSL_FAILURE;		
+		return SSL_FAILURE;
 	}
-	
+
   	method_client = wolfTLSv1_2_client_method();
 	if (method_client == NULL) {
     	printf("Failed to alloc dynamic buffer.\r\n");
@@ -275,19 +275,13 @@ int tls_load_wolfssl_objects(void)
 		return SSL_FAILURE;
 	}
 
-	if (wolfSSL_CTX_use_PrivateKey_buffer(ctx_client, FAKE_KEY_BUFFER,
-						sizeof(FAKE_KEY_BUFFER), SSL_FILETYPE_PEM) != SSL_SUCCESS) {
-		printf("Can't load ecc key file.\r\n");
-		return SSL_FAILURE;
-	}
-
 	if (wolfSSL_CTX_load_verify_buffer(ctx_client, atcert.signer_ca,
 		atcert.signer_ca_size, SSL_FILETYPE_ASN1) != SSL_SUCCESS) {
 		printf("Faile to load verification certificate!\r\n");
 		return SSL_FAILURE;
 	}
 
-	if (wolfSSL_CTX_use_certificate_buffer(ctx_client, atcert.end_user, 
+	if (wolfSSL_CTX_use_certificate_buffer(ctx_client, atcert.end_user,
 			atcert.end_user_size, SSL_FILETYPE_ASN1) != SSL_SUCCESS) {
 		printf("Faile to set own certificate!\r\n");
 		return SSL_FAILURE;
@@ -297,13 +291,13 @@ int tls_load_wolfssl_objects(void)
 		printf("unable to set cipher list for client : %s\r\n", CLIENT_CIPHER_LIST);
 		return SSL_FAILURE;
     }
-	
+
 	wolfSSL_CTX_set_verify(ctx_client, SSL_VERIFY_PEER, tls_verify_peer_cert_cb);
 	wolfSSL_CTX_SetEccSignCb(ctx_client, tls_sign_certificate_cb);
 	wolfSSL_CTX_SetEccSharedSecretCb(ctx_client, tls_create_pms_cb);
 	wolfSSL_SetIORecv(ctx_client, tls_receive_packet_cb);
-	wolfSSL_SetIOSend(ctx_client, tls_send_packet_cb);	
-	
+	wolfSSL_SetIOSend(ctx_client, tls_send_packet_cb);
+
 	ssl_client = wolfSSL_new(ctx_client);
 	if (ssl_client == NULL) {
 		printf("unable to get wolfssl context.\r\n");
@@ -359,9 +353,9 @@ void tls_start_client(void)
 
 		/* Initialize Wi-Fi driver with data and status callbacks. */
 		param.pfAppWifiCb = tls_wifi_callback;
-		ret = m2m_wifi_init(&param);	
+		ret = m2m_wifi_init(&param);
 		if (ret != M2M_SUCCESS) {
-			printf("Failed to register wifi callback!\r\n");		
+			printf("Failed to register wifi callback!\r\n");
 			break;
 		}
 
@@ -374,18 +368,18 @@ void tls_start_client(void)
 #endif
 
 		/* Connect to router. */
-		ret = m2m_wifi_connect((char *)MAIN_WLAN_SSID, sizeof(MAIN_WLAN_SSID), 
+		ret = m2m_wifi_connect((char *)MAIN_WLAN_SSID, sizeof(MAIN_WLAN_SSID),
 						MAIN_WLAN_AUTH, (char *)MAIN_WLAN_PSK, M2M_WIFI_CH_ALL);
 		if (ret != M2M_SUCCESS) {
-			printf("Failed to connect to router!\r\n");		
+			printf("Failed to connect to router!\r\n");
 	        break;
-		}	
+		}
 
 	    /* Poll connection status with router */
 		while (tls_get_wifi_status() != M2M_WIFI_CONNECTED) {
-			m2m_wifi_handle_events(NULL);		
+			m2m_wifi_handle_events(NULL);
 		}
-		
+
 		printf("WINC is connected to %s successfully!\r\n", MAIN_WLAN_SSID);
 
 #ifdef EXTERNAL_NW
@@ -393,13 +387,13 @@ void tls_start_client(void)
         if (tls_get_ntp_socket() < 0) {
             if (tls_get_ntp_time_and_date() < 0) {
 				printf("failed to set time and date!\r\n");
-				break;                
+				break;
             }
         }
 #endif
-	    /* Register socket callback to communicate with TLS server */		
+	    /* Register socket callback to communicate with TLS server */
 		registerSocketCallback(tls_client_socket_cb, NULL);
-		
+
 		ret = tls_access_server(TLS_SERVER_IP, TLS_SERVER_PORT);
 		if (ret < 0) {
 			printf("Failed to create TLS client socket!\r\n");
@@ -411,7 +405,7 @@ void tls_start_client(void)
 			printf("Failed to build server's signer certificate!\r\n");
 			break;
 		}
-		
+
 		ret = tls_build_end_user_cert();
 		if (ret != ATCACERT_E_SUCCESS) {
 			printf("Failed to build client certificate!\r\n");
@@ -432,13 +426,13 @@ void tls_start_client(void)
 
 		ret = tls_send_message();
 		if (ret != SSL_SUCCESS) {
-			printf("Failed to send msessage to server!\r\n");					
+			printf("Failed to send msessage to server!\r\n");
 			break;
 		}
 
 		ret = tls_receive_message();
 		if (ret != SSL_SUCCESS) {
-			printf("Failed to receive msessage from server!\r\n");					
+			printf("Failed to receive msessage from server!\r\n");
 			break;
 		}
 
@@ -449,6 +443,6 @@ void tls_start_client(void)
 	} while(0);
 
 	(ret == SSL_SUCCESS) ? printf(SUCCEED_MSG) : printf(FAILED_MSG);
-	
+
 }
 
